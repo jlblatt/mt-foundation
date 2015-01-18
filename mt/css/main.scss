@@ -1,0 +1,39 @@
+$small: 640px;
+
+#main {
+  padding-top: 3rem;
+}
+
+input[type="file"] {
+  display: inline-block;
+  width: auto;
+}
+
+.reveal-modal {
+  position : fixed;
+}
+
+////////////////////
+//dashboard
+////////////////////
+
+.dashboard .grid .columns {
+  padding-bottom: 5rem;
+
+  @media (max-width: $small) {
+    padding-bottom: 0;
+  }
+
+  .panel {
+    padding-top: 0;
+
+    .title {
+      padding: 1.25rem 0 0 0;
+    }
+      .title:hover {
+        cursor: grab;
+      }
+  }
+}
+  
+

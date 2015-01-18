@@ -1,6 +1,11 @@
 <?php
 
-error_reporting(0);
+$_mt = array(); 
+
+error_reporting(E_ALL); 
+//error_reporting(0);
+
+ob_start();
 
 $_mt['args'] = preg_split("/\//", $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 
@@ -38,8 +43,8 @@ else
 if(count($_mt['args']) > 1)
 {
   $_mt['page'] = preg_replace("/[^\w\-\/]/", "", implode('/', array_slice($_mt['args'], 1)));
-  
-  if(!file_exists("templates/" . $_mt['page'] . ".php"))
+
+  if(!file_exists("templates/" . $_mt['page'] . ".php") && !file_exists("templates/". $_mt['page'] . "/index.php"))
   {
     _mt_404();
     return;

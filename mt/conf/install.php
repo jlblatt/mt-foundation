@@ -70,13 +70,14 @@ if(!$_mt['init'] && isset($_POST['install']))
 
   //setup conf file
   $result = file_put_contents("conf/conf.php",
-      "<?php//begin database conf
+      "<?php
+      //begin database conf
       \$_mt['dbhost'] = '{$_POST['dbhost']}';
       \$_mt['dbname'] = '{$_POST['dbname']}';
       \$_mt['dbuser'] = '{$_POST['dbuser']}';
       \$_mt['dbpass'] = '{$_POST['dbpass']}';
       \$_mt['tblprefix'] = '{$_POST['tblprefix']}';
-      \$conn = new PDO('mysql:host=' . \$_POST['dbhost'] .';dbname=' . \$_POST['dbname'], \$_POST['dbuser'], \$_POST['dbpass']);
+      \$conn = new PDO('mysql:host=' . \$_mt['dbhost'] .';dbname=' . \$_mt['dbname'], \$_mt['dbuser'], \$_mt['dbpass']);
       //end database conf"
     );
   
