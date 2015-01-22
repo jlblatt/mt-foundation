@@ -1,34 +1,84 @@
+"use strict";
+
 $(document).foundation();
 
 
 
 $(document).ready(function() {
+  
+  ////////////////////////
+  // file browser
+  ////////////////////////
+  $.fn.filebrowser = function(args) {
 
-  //$("form").find('input[type="file"]').val('');
+    args = typeof args !== 'undefined' ? args : {};
 
-  $(document).on('submit', 'form.ajax-form-standard', function() {
-    $.ajax({
-      url     : $(this).attr('action'),
-      type    : $(this).attr('method'),
-      dataType: 'json',
-      data    : $(this).serialize(),
-      processData: false,
-      contentType: false,
-      success : function(data) {
-        if(data.success) $(this).reset();
+    return this.each(function() {
 
-        $(this).find('.form-result').empty().append(
-          '<div data-alert class="alert-box ' + data.status + '">' + data.msg + '<a href="#" class="close">&times;</a></div>'
-        );
-      },
-      error   : function() {
-        $(this).find('.form-result').empty().append(
-          '<div data-alert class="alert-box alert">Error: 500 ISE - Sorry :(<a href="#" class="close">&times;</a></div>'
-        );
-      }
-    });    
-    return false;
+      if("refresh" in args && args.refresh)
+      {
+        var url = $(this).data("url");
+        $.ajax({
+          dataType: "json",
+          url: url,
+          //data: data,
+          context: $(this).children(".files"),
+          success: function(data) {
+            if(data.length == 0) $(this).html('<p>No uploads yet!</p>');
+            else
+            {
+              $(this).html('<ul class="small-block-grid-3 medium-block-grid-4 large-block-grid-5">');
+              var $fileList = $(this).children('ul');
+              var path = $(this).parents(".filesystem").data("file-root");
+              for(var i = 0; i < data.length; i++)
+              {
+                $fileList.append('<li><img src="' + path + 'thumbnail/' + data[i] + '" /></li>');
+              }
+            }
+            
+          }
+        });
+      }      
+    });
+
+  };
+
+
+  $(".filesystem").filebrowser({"refresh" : 1});
+
+
+  ////////////////////////
+  // file upload
+  ////////////////////////
+
+  $('.file-field').fileupload({
+    dataType: 'json',
+    dropZone: $(this).parents(".file-upload").find(".input-wrapper"),
+    add: function (e, data) {
+      data.context = $('<p/>').html('<div data-alert class="alert-box secondary">Uploading...</div>').appendTo($(this).parents(".file-upload").find(".results"));
+      data.submit();
+    },
+    progressall: function (e, data) {
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $(this).parents(".file-upload").find(".progress .meter").css(
+        'width',
+        progress + '%'
+      );
+    },
+    done: function (e, data) {
+      $.each(data.result.files, function (index, file) {
+        data.context.parents(".file-browser").children(".filesystem").filebrowser({"refresh" : 1})
+        data.context.html('<div data-alert class="alert-box success radius">Finished!</div>');
+        setTimeout(function(){
+          data.context.fadeOut();
+        }, 3000);
+      });
+    }
   });
+
+  ////////////////////////
+  // dashboard
+  ////////////////////////
 
   $(".dashboard .columns").sortable({
     items: '.panel',

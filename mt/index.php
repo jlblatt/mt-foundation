@@ -13,11 +13,14 @@
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery-ui.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/fastclick.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/placeholder.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.iframe-transport.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.fileupload.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/foundation.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/main.js" defer></script>
 
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/normalize.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/jquery-ui.css">
+    <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/font-awesome.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/foundation.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/main.css">
   </head>
@@ -60,6 +63,6 @@
   $page = ob_get_contents();
   ob_end_clean();
 
-  $title = $_mt['page_title'] ? $_mt['page_title'] : $_mt['page'];
+  $title = isset($_mt['page_title']) ? $_mt['page_title'] : $_mt['page'];
   echo str_replace ('<!--TITLE-->', 'mt - ' . $title, $page);
 ?>
