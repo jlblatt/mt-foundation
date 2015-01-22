@@ -31,6 +31,17 @@
       <?php require_once("includes/header.php"); ?>
       
       <div id="main">
+
+        <?php if(count($_mt['msgs']) > 0): ?>
+          <div class="msgs">
+            <?php foreach($_mt['msgs'] as $msg): ?>
+              <div data-alert class="alert-box <?php if(isset($msg['lvl'])) echo $msg['lvl']; ?>">
+                <?php if(isset($msg['msg'])) echo $msg['msg']; ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+        
         <?php if(file_exists("templates/" . $_mt['page'] . ".php")): ?>
           <?php require_once("templates/" . $_mt['page'] . ".php"); ?>
         <?php else: ?>
@@ -46,11 +57,9 @@
 </html>
 
 <?php 
-  $page = ob_get_contents ();
-  ob_end_clean ();
+  $page = ob_get_contents();
+  ob_end_clean();
 
   $title = $_mt['page_title'] ? $_mt['page_title'] : $_mt['page'];
   echo str_replace ('<!--TITLE-->', 'mt - ' . $title, $page);
 ?>
-
-<title>mt<?php if($_mt['page_title']) echo ' - ' . $_mt['page_title']; ?></title>

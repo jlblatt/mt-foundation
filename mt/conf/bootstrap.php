@@ -1,6 +1,6 @@
 <?php
 
-$_mt = array(); 
+$_mt = array('msgs' => array());
 
 error_reporting(E_ALL); 
 //error_reporting(0);
