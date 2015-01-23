@@ -11,7 +11,10 @@
       {
         if($file != '.' && $file != '..' && $file != 'thumbnail')
         {
-          $files[] = $file;
+          $files[] = array(
+            "name" => $file,
+            "isdir" => is_dir($dir . $file)
+          );
         }
       }
         

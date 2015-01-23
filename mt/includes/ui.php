@@ -19,11 +19,11 @@
     <p class="lead">Upload a new image:</p>
     
     <div class="file-upload">
+      <div class="progress"><span class="meter" style="width: 0%"></span></div>
       <div class="input-wrapper">
         <h3 class="centered">Drop your images here or click to upload</h3>
         <input class="file-field" type="file" name="files[]" data-url="/<?php echo $_mt['server_path']; ?>/ajax/fileupload/" multiple>
       </div>
-      <div class="progress"><span class="meter" style="width: 0%"></span></div>
       <div class="results"></div>
     </div>
   

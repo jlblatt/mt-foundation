@@ -3,7 +3,7 @@
   <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: large">
     <ul class="title-area">
       <li class="name">
-        <h1><a href="/<?php echo $_mt['server_path']; ?>/">mt</a></h1>
+        <h1><a href="/<?php echo $_mt['server_path']; ?>/"><i class="fa fa-bug"></i> / mt</a></h1>
       </li>
       <li class="toggle-topbar menu-icon"><a><span></span></a></li>
     </ul>
@@ -19,6 +19,7 @@
       </ul>
 
       <ul class="left">
+        <li class="divider"></li>
         <li><a href="/<?php echo $_mt['server_path']; ?>/nodes/">Nodes</a></li>
       </ul>
     </section>

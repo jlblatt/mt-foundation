@@ -6,6 +6,10 @@ $small: 640px;
   padding-top: 3rem;
 }
 
+.top-bar a:hover {
+  background: rgba(255, 255, 255, .1) !important;
+}
+
 .reveal-modal-bg {
   position: fixed;
 }
@@ -15,36 +19,71 @@ $small: 640px;
 ////////////////////
 .filesystem {
   margin-bottom: 48px;
+
+  .files li {
+    text-align: center;
+    font-size: .7rem;
+    &.icon {
+      font-size: 1.2rem;
+      //line-height: 1;
+      i {
+        font-size: 5rem;
+        margin-top: 15%;
+      }
+    }
+    a {
+      display: block;
+      color: #666;
+      &:hover {
+        opacity: .85;
+      }
+    }
+  }
 }
 
-.file-upload .input-wrapper {
-  position: relative;
-  margin-bottom: 24px;
-  border: 1px solid #eee;
-  @include transition(background-color .3s ease);
 
-  &:hover {
-    background: #ddd;
+.file-upload  {
+  .input-wrapper {
+    position: relative;
+    margin: 24px 0;
+    border: 1px solid #eee;
+    @include transition(background-color .3s ease);
+
+    &:hover {
+      background: #ddd;
+      h3 {
+        color: #999;
+      }
+    }
+
+    input[type="file"] {
+      display: block;
+      height: 200px;
+      opacity: 0;
+    }
+
     h3 {
-      color: #999;
+      position: absolute;
+      margin-top: 90px;
+      width: 100%;
+      text-align: center;
+      color: #ccc;
+      @include transition(color .3s ease);
+
+      &.loading {
+        margin-top: 63px;
+        color: #888;
+        font-size: 4rem;
+      }
     }
   }
 
-  input[type="file"] {
-    display: block;
-    height: 200px;
-    opacity: 0;
-  }
-
-  h3 {
-    position: absolute;
-    margin-top: 90px;
-    width: 100%;
+  .results {
     text-align: center;
-    color: #ccc;
-    @include transition(color .3s ease);
+    .label {
+      margin: 0 6px;
+    }
   }
-
 }
 
 ////////////////////
