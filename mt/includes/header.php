@@ -10,10 +10,10 @@
 
     <section class="top-bar-section">
       <ul class="right">
-        <li class="has-dropdown">
-          <a>Settings</a>
+        <li class="has-dropdown" id="settings-menu">
+          <a><i class="fa fa-cog"></i></a>
           <ul class="dropdown">
-            <li><a data-reveal-id="set-wallpaper">Set Wallpaper</a></li>
+            <li><a data-reveal-id="file-browser" data-selection-callback="setWallpaper">Set Wallpaper</a></li>
           </ul>
         </li>
       </ul>

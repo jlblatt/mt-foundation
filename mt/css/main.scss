@@ -1,5 +1,6 @@
 @import "mixins";
 
+$xsmall: 360px;
 $small: 640px;
 
 #main {
@@ -9,6 +10,12 @@ $small: 640px;
 .top-bar a:hover {
   background: rgba(255, 255, 255, .1) !important;
 }
+  #settings-menu > a {
+    font-size: 1.3rem;
+  }
+  .top-bar-section .has-dropdown > a:after {
+    border-color: rgba(255, 255, 255, 1) transparent transparent;
+  }
 
 .reveal-modal-bg {
   position: fixed;
@@ -17,32 +24,54 @@ $small: 640px;
 ////////////////////
 //ui
 ////////////////////
-.filesystem {
+#filesystem {
   margin-bottom: 48px;
 
   .files li {
     text-align: center;
     font-size: .7rem;
+    line-height: 1;
     &.icon {
-      font-size: 1.2rem;
-      //line-height: 1;
       i {
+        position: absolute; 
+        left: 50%;
+        bottom: 1rem;
+        margin-left: -2.5rem;
         font-size: 5rem;
-        margin-top: 15%;
+        color: #ccc;
+        @media (min-width: $xsmall) {
+          bottom: 2.2rem;
+        }
+      }
+      span.filename {
+        position: absolute;
+        top: 100%;
+        width: 100%;
       }
     }
     a {
       display: block;
-      color: #666;
+      position: relative;
+      color: #444;
       &:hover {
         opacity: .85;
+      }
+      img {
+        width: 100%;
+      }
+      span.filename {
+        display: block;
+        height: 1.4rem;
+        padding-top: .4rem;
+        white-space: nowrap;
+        overflow: hidden;
       }
     }
   }
 }
 
 
-.file-upload  {
+#file-upload  {
   .input-wrapper {
     position: relative;
     margin: 24px 0;
@@ -91,10 +120,9 @@ $small: 640px;
 ////////////////////
 
 .dashboard .grid .columns {
-  padding-bottom: 5rem;
 
-  @media (max-width: $small) {
-    padding-bottom: 0;
+  @media (min-width: $small) {
+    padding-bottom: 5rem;
   }
 
   .panel {
