@@ -16,16 +16,19 @@
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.iframe-transport.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.fileupload.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/foundation.js"></script>
+
     <script src="/<?php echo $_mt['server_path']; ?>/js/main.js" defer></script>
 
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/normalize.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/jquery-ui.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/font-awesome.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/foundation.css">
+
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/main.css">
   </head>
 
   <body>
+
     <?php if($_mt['page'] == "install"): ?>
       <?php require_once("conf/install.php"); ?>
     <?php else: ?>
@@ -33,7 +36,7 @@
       <?php require_once("includes/ui.php"); ?>
       <?php require_once("includes/header.php"); ?>
       
-      <div id="main">
+      <div id="main" class="row">
 
         <?php if(count($_mt['msgs']) > 0): ?>
           <div class="msgs">
@@ -55,6 +58,7 @@
       <?php require_once("includes/footer.php"); ?>
       
     <?php endif; ?>
+
   </body>
 
 </html>

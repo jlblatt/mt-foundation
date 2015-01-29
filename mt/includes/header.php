@@ -13,7 +13,7 @@
         <li class="has-dropdown" id="settings-menu">
           <a><i class="fa fa-cog"></i></a>
           <ul class="dropdown">
-            <li><a data-reveal-id="file-browser" data-selection-callback="setWallpaper">Set Wallpaper</a></li>
+            <li><a data-reveal-id="file-browser" data-instance-id="mtSetWallpaper">Set Wallpaper</a></li>
           </ul>
         </li>
       </ul>

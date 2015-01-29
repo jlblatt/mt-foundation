@@ -1,7 +1,7 @@
 <div class="dashboard">
 
   <div class="row">
-    <div class="small-12 columns">
+    <div class="small-12 columns no-drop">
       <?php 
         $greeting = "Hello";
         date_default_timezone_set('America/New_York');
@@ -17,21 +17,21 @@
 
   <div class="row grid">
     <div class="small-12 medium-6 columns">
-      <div class="panel">
+      <div class="panel callout" data-dash-id="1">
         <div class="title"><strong>Lorem ipsum Cillum</strong><hr /></div>
         Lorem ipsum In magna pariatur Duis adipisicing nisi do dolore nulla ut deserunt in.
       </div>
-      <div class="panel callout">
+      <div class="panel" data-dash-id="2">
         <div class="title"><strong>Lorem ipsum Cillum</strong><hr /></div>
         Lorem ipsum In magna pariatur Duis adipisicing nisi do dolore nulla ut deserunt in.
       </div>
     </div>
     <div class="small-12 medium-6 columns">
-      <div class="panel">
+      <div class="panel" data-dash-id="3">
         <div class="title"><strong>Lorem ipsum Cillum</strong><hr /></div>
         Lorem ipsum In magna pariatur Duis adipisicing nisi do dolore nulla ut deserunt in.
       </div>
-      <div class="panel">
+      <div class="panel" data-dash-id="4">
         <div class="title"><strong>Lorem ipsum Cillum</strong><hr /></div>
         Lorem ipsum In magna pariatur Duis adipisicing nisi do dolore nulla ut deserunt in.
       </div>

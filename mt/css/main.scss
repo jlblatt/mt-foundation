@@ -3,19 +3,45 @@
 $xsmall: 360px;
 $small: 640px;
 
-#main {
-  padding-top: 3rem;
+body {
+  min-height: 100%;
 }
 
-.top-bar a:hover {
-  background: rgba(255, 255, 255, .1) !important;
+#main {
+  min-height: 100%;
+  padding: 1.5rem;
+
+  @media (min-width: $small)
+  {
+    padding: 3rem;
+  }
 }
+
+footer {
+  padding: 0 1.5rem;
+
+  @media (min-width: $small)
+  {
+    padding: 0 3rem;
+  }
+}
+
+header {
+  box-shadow: 0 4px 6px rgba(0,0,0,.3);
+  border-bottom: 1px solid #000;
+
+  a:hover {
+    background: rgba(255, 255, 255, .1) !important;
+  }
+
   #settings-menu > a {
     font-size: 1.3rem;
   }
+
   .top-bar-section .has-dropdown > a:after {
     border-color: rgba(255, 255, 255, 1) transparent transparent;
   }
+}
 
 .reveal-modal-bg {
   position: fixed;
@@ -72,6 +98,10 @@ $small: 640px;
 
 
 #file-upload  {
+  .progress .meter {
+    width: 100%;
+  }
+
   .input-wrapper {
     position: relative;
     margin: 24px 0;
@@ -115,15 +145,26 @@ $small: 640px;
   }
 }
 
+#wallpaper-settings {
+  .preview {
+    height: 300px;
+    .overlay {
+      height: 100%;
+      background: #fff;
+      border: 1px solid #aaa;
+      opacity: 0;
+    }
+  }
+  .actions {
+    text-align: center;
+  }
+}
+
 ////////////////////
 //dashboard
 ////////////////////
 
 .dashboard .grid .columns {
-
-  @media (min-width: $small) {
-    padding-bottom: 5rem;
-  }
 
   .panel {
     padding-top: 0;
@@ -134,6 +175,11 @@ $small: 640px;
       .title:hover {
         cursor: grab;
       }
+
+    &.placeholder {
+      background: rgba(0,0,0,.02);
+      border: 1px dashed #bbb;
+    }
   }
 }
   
