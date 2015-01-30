@@ -9,10 +9,51 @@ function mtSelectFile(iid)
   if(iid) $("#file-browser").data('current-iid', iid);
   iid = $("#file-browser").data('current-iid');
 
+  $("#filesystem .files ul").empty();
+  $("#filesystem .files").prepend('<p class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></p>');
+
   $.ajax({
     dataType: "json",
     url: $("#filesystem").data("url"),
+    data: {path : $("#filesystem").data("curr-directory")},
     success: function(data) {
+
+      //create breadcrumb
+      var currDir = $("#filesystem").data("curr-directory");
+      $("#filesystem .breadcrumbs").html('<li><a data-name="uploads">uploads</a></li>');
+      if(currDir != "/")
+      {
+        var dirs = currDir.split("/");
+
+        for(var i = 0; i < dirs.length; i++)
+        {
+          if(dirs[i] != "")
+          {
+            $("#filesystem .breadcrumbs").append('<li><a data-name="' + dirs[i] + '">' + dirs[i] + '</a></li>');
+          }
+        }
+      }
+
+      $("#filesystem .breadcrumbs li:last-child").addClass("current");
+
+      $("#filesystem .breadcrumbs li a").click(function(){
+        var newDir = '/';
+        $(this).parent().prevAll(":not(:first-child)").each(function(){
+          newDir += $(this).find('a').data('name') + '/';
+        });
+        if($(this).parent().is(":not(:first-child)")) newDir += $(this).data("name") + '/';
+
+        $("#filesystem").data("curr-directory", newDir);
+        if(iid) mtSelectFile(iid);
+        else mtSelectFile();
+      });
+
+      //build filesystem display
+
+      var spacer = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />';
+
+      var $fileList = $("#filesystem .files ul");
+      $("#filesystem .files p.no-files, #filesystem .files p.loading").remove();
 
       if(data.length == 0) 
       {
@@ -20,26 +61,32 @@ function mtSelectFile(iid)
         return;
       }
 
-      var $fileList = $("#filesystem .files ul").empty();
-      var path = $("#filesystem").data("file-root");
-      $("#filesystem .files p.no-files").remove();
+      if(currDir != "/")
+      {
+        $fileList.append('<li class="icon back"><a>' + spacer + '<i class="fa fa-arrow-circle-left"></i><span class="filename">../ Back<span></a></li>')
+      }
 
-      data.sort(function(a,b) {
-        return a.isdir ? -1 : 1;
+      $("#filesystem .files ul li.back a").click(function(){
+        $("#filesystem .breadcrumbs li.current").prev().find('a').click();
       });
 
-      var spacer = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />';
+      data.reverse().sort(function(a,b) {
+        return a.isdir ? -1 : 1;
+      });
 
       for(var i = 0; i < data.length; i++)
       {
         if(data[i].isdir)
         {
-          $fileList.append('<li class="icon directory"><a>' + spacer + '<i class="fa fa-folder-open"></i><span class="filename">' + data[i].name + '<span></a></li>');
+          $fileList.append('<li class="icon directory"><a data-name="' + data[i].name + '">' + spacer + '<i class="fa fa-folder-open"></i><span class="filename">' + data[i].name + '<span></a></li>');
           continue;
         }
 
+        var path = $("#filesystem").data("file-root");
+        var thumbUrl = path + currDir + 'thumbnail/' + data[i].name;
+        var url = thumbUrl.replace('thumbnail/', '');
+
         var ext = data[i].name.toLowerCase().match(/\.\w+$/);
-        var url = path + data[i].name;
 
         if(!ext) 
         {
@@ -51,7 +98,7 @@ function mtSelectFile(iid)
 
         if(ext.match(/(png)|(gif)|(jpg)|(jpeg)/))
         {
-          $fileList.append('<li><a data-url="' + url + '"><img src="' + path + 'thumbnail/' + data[i].name + '" title="' + data[i].name + '" /><span class="filename">' + data[i].name + '</span></a></li>');  
+          $fileList.append('<li><a data-url="' + url + '"><img src="' + thumbUrl + '" title="' + data[i].name + '" /><span class="filename">' + data[i].name + '</span></a></li>');  
           continue;
         }
 
@@ -65,6 +112,13 @@ function mtSelectFile(iid)
       }
 
       mtSizeFSIcons();
+
+      //directories
+      $("#filesystem .files ul li.directory a").click(function(){
+        $("#filesystem").data("curr-directory", $("#filesystem").data("curr-directory") + $(this).data("name") + '/');
+        if(iid) mtSelectFile(iid);
+        else mtSelectFile();
+      });
 
       //callback
       $("#filesystem .files ul li:not(.directory) a").click(function(){
@@ -146,6 +200,8 @@ $(document).ready(function() {
   ////////////////////////
 
   var uploadCount = 0;
+
+  console.log('upload into correct directory');
 
   $('.file-field').fileupload({
     dataType: 'json',
@@ -272,7 +328,7 @@ $(document).ready(function() {
     },
     stop: function()
     {
-      //cookie user here
+      console.log("cookie dashboard layout");
     }
   });
 

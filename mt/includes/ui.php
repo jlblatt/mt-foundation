@@ -1,8 +1,8 @@
 <div id="file-browser" class="reveal-modal" data-reveal>
   <h1>Choose an image...</h1>
   
-  <div id="filesystem" data-url="/<?php echo $_mt['server_path']; ?>/ajax/filebrowser/" data-file-root="/<?php echo $_mt['server_path']; ?>/uploads/">
-    <ul class="breadcrumbs"><li><a>uploads</a></li></ul>
+  <div id="filesystem" data-url="/<?php echo $_mt['server_path']; ?>/ajax/filebrowser/" data-file-root="/<?php echo $_mt['server_path']; ?>/uploads" data-curr-directory="/">
+    <ul class="breadcrumbs"></ul>
     <div class="files">
       <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5"></ul>
     </div>

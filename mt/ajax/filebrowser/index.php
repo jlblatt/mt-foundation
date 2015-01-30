@@ -1,9 +1,17 @@
 <?php
 
-  $dir = "../../uploads/";
+  $dir = "../../uploads";
+
+  if(isset($_GET['path']))
+  {
+    $path = $_GET['path'];
+    $path = str_replace("..", "", $path);
+    $dir .= $path;
+  }
+
   $files = array();
 
-  if (is_dir($dir))
+  if(is_dir($dir))
   {
     if($dh = opendir($dir))
     {
