@@ -1,0 +1,1 @@
+artists/delete.php

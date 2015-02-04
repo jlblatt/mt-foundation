@@ -1,6 +1,7 @@
 <?php 
 
 $installSuccess = false;
+$failedReason = "";
 
 if(!$_mt['init'] && isset($_POST['install']))
 {
@@ -37,13 +38,28 @@ if(!$_mt['init'] && isset($_POST['install']))
     }
 
     //copy test template files into place
+    $results = [];
     
-      $result1 = copy('conf/testdata/nodes/index.php', 'templates/nodes/index.php');
-      $result2 = copy('conf/testdata/nodes/add.php', 'templates/nodes/add.php');
-      $result3 = copy('conf/testdata/nodes/delete.php', 'templates/nodes/delete.php');
-      $result4 = copy('conf/testdata/nodes/update.php', 'templates/nodes/update.php');
+    $results[] = mkdir('templates/artists', 0755, true);
+    $results[] = mkdir('templates/albums', 0755, true);
+    $results[] = mkdir('templates/songs', 0755, true);
+
+    $results[] = copy('conf/testdata/artists/index.php', 'templates/artists/index.php');
+    $results[] = copy('conf/testdata/artists/add.php', 'templates/artists/add.php');
+    $results[] = copy('conf/testdata/artists/delete.php', 'templates/artists/delete.php');
+    $results[] = copy('conf/testdata/artists/update.php', 'templates/artists/update.php');
+
+    $results[] = copy('conf/testdata/albums/index.php', 'templates/albums/index.php');
+    $results[] = copy('conf/testdata/albums/add.php', 'templates/albums/add.php');
+    $results[] = copy('conf/testdata/albums/delete.php', 'templates/albums/delete.php');
+    $results[] = copy('conf/testdata/albums/update.php', 'templates/albums/update.php');
     
-    if(!($result1 && $result2 && $result3 && $result4)) $failedReason = "Could not copy test template files.";
+    $results[] = copy('conf/testdata/songs/index.php', 'templates/songs/index.php');
+    $results[] = copy('conf/testdata/songs/add.php', 'templates/songs/add.php');
+    $results[] = copy('conf/testdata/songs/delete.php', 'templates/songs/delete.php');
+    $results[] = copy('conf/testdata/songs/update.php', 'templates/songs/update.php');
+    
+    if(array_search(false, $results) !== false) $failedReason = "Could not copy test template files.";
     
   }
 
@@ -150,7 +166,7 @@ if(!$_mt['init'] && isset($_POST['install']))
 
           <label>
             <input type="checkbox" name="testdata" <?php if(isset($_POST['testdata'])) echo 'checked'; ?> />
-            Load test data after installing?
+            Load test data during install?
           </label>
 
           <p>&nbsp;</p>

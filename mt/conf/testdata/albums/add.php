@@ -1,0 +1,1 @@
+albums/add.php
