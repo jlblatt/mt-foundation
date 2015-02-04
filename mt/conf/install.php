@@ -38,34 +38,27 @@ if(!$_mt['init'] && isset($_POST['install']))
     }
 
     //copy test template files into place
-    $results = [];
-    
-    $results[] = mkdir('templates/artists', 0755, true);
-    $results[] = mkdir('templates/albums', 0755, true);
-    $results[] = mkdir('templates/songs', 0755, true);
+    @mkdir('uploads');
+    $result = true;
+    recurse_copy('conf/testdata/templates', 'templates');
+    recurse_copy('conf/testdata/uploads', 'uploads');
+    if(!$result) $failedReason = "Could not copy test template files.";
 
-    $results[] = copy('conf/testdata/artists/index.php', 'templates/artists/index.php');
-    $results[] = copy('conf/testdata/artists/add.php', 'templates/artists/add.php');
-    $results[] = copy('conf/testdata/artists/delete.php', 'templates/artists/delete.php');
-    $results[] = copy('conf/testdata/artists/update.php', 'templates/artists/update.php');
+    //add navigation
+    $mainnav = 
+      '<li class="divider"></li><li><a href="/mt/artists/">Artists</a></li>' . 
+      '<li class="divider"></li><li><a href="/mt/albums/">Albums</a></li>' . 
+      '<li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>';
+    $header = str_replace('<!--{{{mainnav}}}-->', $mainnav, file_get_contents('includes/header.php'));
+    $result = file_put_contents('includes/header.php', $header);
 
-    $results[] = copy('conf/testdata/albums/index.php', 'templates/albums/index.php');
-    $results[] = copy('conf/testdata/albums/add.php', 'templates/albums/add.php');
-    $results[] = copy('conf/testdata/albums/delete.php', 'templates/albums/delete.php');
-    $results[] = copy('conf/testdata/albums/update.php', 'templates/albums/update.php');
-    
-    $results[] = copy('conf/testdata/songs/index.php', 'templates/songs/index.php');
-    $results[] = copy('conf/testdata/songs/add.php', 'templates/songs/add.php');
-    $results[] = copy('conf/testdata/songs/delete.php', 'templates/songs/delete.php');
-    $results[] = copy('conf/testdata/songs/update.php', 'templates/songs/update.php');
-    
-    if(array_search(false, $results) !== false) $failedReason = "Could not copy test template files.";
+    //add dashboard panels
     
   }
 
   //rewrite .htaccess once in case user changed the base /mt/ directory
-  $result = file_put_contents('.htaccess',
-      "#begin mt rules
+  $result = file_put_contents('.htaccess',"
+      #begin mt rules
       <IfModule mod_rewrite.c>
           RewriteEngine On
           RewriteBase /{$_mt['server_path']}/
@@ -85,8 +78,8 @@ if(!$_mt['init'] && isset($_POST['install']))
   if($result === false) $failedReason = "Could not write to .htaccess.";
 
   //setup conf file
-  $result = file_put_contents("conf/conf.php",
-      "<?php
+  $result = file_put_contents("conf/conf.php", "
+      <?php
       //begin database conf
       \$_mt['dbhost'] = '{$_POST['dbhost']}';
       \$_mt['dbname'] = '{$_POST['dbname']}';
@@ -97,7 +90,7 @@ if(!$_mt['init'] && isset($_POST['install']))
       //end database conf"
     );
   
-  if($result === false) $failedReason = "Could not write to conf/conf.php";
+  if($result === false) $failedReason = "Could not write to conf/conf.php.";
   
   //did we make it?
   if(!$failedReason) $installSuccess = true;
@@ -181,3 +174,26 @@ if(!$_mt['init'] && isset($_POST['install']))
 
   </div>
 </div>
+
+
+
+<?php
+//http://php.net/manual/en/function.copy.php#91010
+function recurse_copy($src,$dst) {
+  global $result;
+  $dir = opendir($src);
+  @mkdir($dst);
+  while(false !== ( $file = readdir($dir)) ) {
+    if (( $file != '.' ) && ( $file != '..' )) {
+      if ( is_dir($src . '/' . $file) ) {
+        recurse_copy($src . '/' . $file,$dst . '/' . $file);
+      }
+      else {
+        $res = copy($src . '/' . $file,$dst . '/' . $file);
+        if(!$res) $result = false;
+      }
+    }
+  }
+  closedir($dir);
+}
+?>

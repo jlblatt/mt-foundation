@@ -19,8 +19,7 @@
       </ul>
 
       <ul class="left">
-        <li class="divider"></li>
-        <li><a href="/<?php echo $_mt['server_path']; ?>/nodes/">Nodes</a></li>
+        <li class="divider"></li><li><a href="/mt/artists/">artists</a></li><li class="divider"></li><li><a href="/mt/albums/">Albums</a></li><li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>
       </ul>
     </section>
   </nav>
