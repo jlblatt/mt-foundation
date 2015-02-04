@@ -41,11 +41,14 @@ class UploadHandler
     protected $image_objects = array();
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
+        $path = "/";
+        if(isset($_GET['path'])) $path = str_replace("..", "", $_GET['path']);
+
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/../../uploads/',
-            'upload_url' => $this->get_full_url().'/../../uploads/',
+            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/../../uploads' . $path,
+            'upload_url' => $this->get_full_url().'/../../uploads' . $path,
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',

@@ -1,5 +1,7 @@
 "use strict";
 
+var foo;
+
 ////////////////////////
 // file browser
 ////////////////////////
@@ -44,9 +46,16 @@ function mtSelectFile(iid)
         if($(this).parent().is(":not(:first-child)")) newDir += $(this).data("name") + '/';
 
         $("#filesystem").data("curr-directory", newDir);
+
         if(iid) mtSelectFile(iid);
         else mtSelectFile();
       });
+
+      //update url for file uploads
+      var currURL = $('#file-upload input[type="file"]').data("url");
+      var newURL = currURL.replace(/\?path\=.*/, "") + "?path=" + $("#filesystem").data("curr-directory");
+      $('#file-upload input[type="file"]').data("url", newURL);
+      $('#file-upload input[type="file"]').fileupload('option', 'url', newURL);
 
       //build filesystem display
 
@@ -201,9 +210,7 @@ $(document).ready(function() {
 
   var uploadCount = 0;
 
-  console.log('upload into correct directory');
-
-  $('.file-field').fileupload({
+  $('#file-upload input[type="file"]').fileupload({
     dataType: 'json',
     dropZone: $("#file-upload .input-wrapper"),
     drop: function (e, data) {
@@ -328,9 +335,32 @@ $(document).ready(function() {
     },
     stop: function()
     {
-      console.log("cookie dashboard layout");
+      var layout = [];
+      $('.dashboard .columns:not(".no-drop")').each(function(){
+        layout.push([]);
+        $(this).find(".panel").each(function(){
+          layout[layout.length - 1].push($(this).data("dash-id"));
+        });
+      });
+
+      $.cookie("mtDashboardLayout", JSON.stringify(layout), { expires: 3650, path: '/' });
     }
   });
+
+  if($.cookie("mtDashboardLayout"))
+  {
+    var dashLayout = JSON.parse($.cookie("mtDashboardLayout"));
+    var $panels = $('.dashboard .columns:not(".no-drop") .panel').remove();
+
+    for(var i = 0; i < dashLayout.length; i++)
+    {
+      for(var j = 0; j < dashLayout[i].length; j++)
+      {
+        var dashid = dashLayout[i][j];
+        $('.dashboard .columns:not(".no-drop")').eq(i).append($panels.filter('[data-dash-id="' + dashid + '"]'));
+      }
+    }
+  }
 
 });
 
