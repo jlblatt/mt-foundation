@@ -18,20 +18,37 @@ body {
 }
 
 header {
-  box-shadow: 0 4px 6px rgba(0,0,0,.4);
-
-  a:hover {
-    background: rgba(255, 255, 255, .1) !important;
+  
+  .sticky {
+    box-shadow: 0 4px 6px rgba(0,0,0,.4);
   }
 
-  #settings-menu > a {
-    font-size: 1.3rem;
-  }
+  .top-bar {
+    a:hover {
+      background: rgba(255, 255, 255, .1) !important;
+    }
 
-  .top-bar-section .has-dropdown > a:after {
-    border-color: rgba(255, 255, 255, 1) transparent transparent;
-  }
+    .name h1 {
+      font-size: 1.48rem;
 
+      i.fa {
+        width: 2.24rem;
+      }
+    }
+
+    .top-bar-section {
+      i.fa {
+        position: relative;
+        top: .1rem;
+        font-size: 1.3rem;
+      }
+
+      .has-dropdown > a:after {
+        border-color: rgba(255, 255, 255, 1) transparent transparent;
+      }
+    }
+  }
+  
   .breadcrumbs {
     margin-bottom: 0
   }

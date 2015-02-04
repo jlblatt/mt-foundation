@@ -3,8 +3,8 @@
   
   <div id="filesystem" data-url="/<?php echo $_mt['server_path']; ?>/ajax/filebrowser/" data-file-root="/<?php echo $_mt['server_path']; ?>/uploads" data-curr-directory="/">
     <ul class="button-group">
-      <li><a id="btn-new-folder" data-tooltip aria-haspopup="true" class="button" title="Create A Folder"><i class="fa fa-folder-open"></i>&nbsp;<i class="fa fa-plus"></i><span class="show-for-small-only">&nbsp;Create A Folder</span></a></li>
-      <li><a id="btn-new-file"   data-tooltip aria-haspopup="true" class="button" title="Upload a New File"><i class="fa fa-upload"></i><span class="show-for-small-only">&nbsp;Upload a New File</span></a></li>
+      <li><a id="btn-new-folder" class="button" title="Create A Folder"><i class="fa fa-folder-open"></i>&nbsp;<i class="fa fa-plus"></i><span class="show-for-small-only">&nbsp;Create A Folder</span></a></li>
+      <li><a id="btn-new-file"  class="button" title="Upload a New File"><i class="fa fa-upload"></i><span class="show-for-small-only">&nbsp;Upload a New File</span></a></li>
     </ul>
     <i data-tooltip aria-haspopup="true" class="fa fa-arrow-circle-left back" title="Back"></i>
     <ul class="breadcrumbs"></ul>

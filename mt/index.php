@@ -9,8 +9,9 @@
     
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/modernizr.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.js"></script>
-    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.cookie.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery-ui.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.cookie.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.dataTables.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/fastclick.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/placeholder.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.iframe-transport.js"></script>
@@ -21,6 +22,7 @@
 
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/normalize.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/jquery-ui.css">
+    <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/jquery.dataTables.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/font-awesome.css">
     <link rel="stylesheet" href="/<?php echo $_mt['server_path']; ?>/css/vendor/foundation.css">
 

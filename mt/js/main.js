@@ -67,7 +67,6 @@ function mtSelectFile(iid)
       if(data.length == 0) 
       {
         $("#filesystem .files").prepend('<p class="no-files">No uploads yet!</p>');
-        return;
       }
 
       $("#filesystem .back").removeClass("active").unbind("click");
@@ -336,7 +335,11 @@ $(document).ready(function() {
   // assorted ui
   ////////////////////////
 
-  $("#settings-menu").hover(function(){
+  var icons = ['birthday-cake', 'tachometer', 'tty', 'beer', 'bug', 'bed', 'heart', 'transgender-alt', 'connectdevelop', 'magic', 'music', 'rocket', 'rebel', 'empire', 'glass', 'leaf', 'paw']
+  var icon = icons[Math.floor(Math.random()*icons.length)];
+  $(".top-bar .name h1 a").prepend('<i class="fa fa-' + icon + '"></i>');
+
+  $(".top-bar .has-dropdown").hover(function(){
     $(this).find('.fa').addClass('fa-spin');
   }, function() {
     $(this).find('.fa').removeClass('fa-spin');
@@ -385,7 +388,24 @@ $(document).ready(function() {
     }
   }
 
-});
+
+  ////////////////////////
+  // list views
+  ////////////////////////
+
+  $('#list-view table').each(function(){
+    var data = eval($(this).data('json'));
+    var columns = eval($(this).data('json') + "_columns");
+    console.log(columns);
+    $(this).dataTable({
+      "data": data,
+      "columns": columns 
+    });
+  });
+
+
+
+});  //document.ready
 
 
 
@@ -400,4 +420,4 @@ $(document).ready(function() {
 
 $(window).load(function(){
 
-});
+});  //window.load
