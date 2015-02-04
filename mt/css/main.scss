@@ -37,6 +37,10 @@ header {
   }
 }
 
+.breadcrumbs {
+  border-radius: 0;
+}
+
 footer {
   padding: 0 1.5rem;
 
@@ -54,9 +58,32 @@ footer {
 //ui
 ////////////////////
 #filesystem {
-  margin-bottom: 48px;
+  margin-bottom: 3rem;
+
+  .back {
+    float: left;
+    margin-right: .5rem;
+    font-size: 3rem;
+    color: #eee;
+    &.active{
+      color: #ccc;
+      &:hover {
+        color: #aaa;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .button-group {
+    @media (min-width: $small) {
+      float: right;  
+      margin-left: 1rem;
+    }
+  }
 
   .breadcrumbs {
+    position: relative;
+    top: .5rem;
     padding-bottom: 0;
     > li {
       margin-bottom: 0.5625rem;
@@ -70,42 +97,48 @@ footer {
     color: #008CBA;
   }
 
-  .files li {
-    text-align: center;
-    font-size: .7rem;
-    line-height: 1;
-    &.icon {
-      i {
-        position: absolute; 
-        left: 50%;
-        bottom: 2.4rem;
-        margin-left: -2.5rem;
-        font-size: 5rem;
-        color: #ccc;
-        @media (min-width: $xsmall) {
-          bottom: 3.6rem;
+  .files {
+    clear: both;
+    padding-top: 1rem;
+    
+    li {
+      text-align: center;
+      font-size: .7rem;
+      line-height: 1;
+      &.icon {
+        i {
+          position: absolute; 
+          left: 50%;
+          bottom: 2.4rem;
+          margin-left: -2.5rem;
+          font-size: 5rem;
+          color: #ccc;
+          @media (min-width: $xsmall) {
+            bottom: 3.6rem;
+          }
+        }
+      }
+      a {
+        display: block;
+        position: relative;
+        color: #444;
+        &:hover {
+          opacity: .85;
+        }
+        img {
+          width: 100%;
+        }
+        span.filename {
+          display: block;
+          height: 1.4rem;
+          padding-top: .4rem;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
-    a {
-      display: block;
-      position: relative;
-      color: #444;
-      &:hover {
-        opacity: .85;
-      }
-      img {
-        width: 100%;
-      }
-      span.filename {
-        display: block;
-        height: 1.4rem;
-        padding-top: .4rem;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-    }
   }
+
 }
 
 
@@ -116,7 +149,7 @@ footer {
 
   .input-wrapper {
     position: relative;
-    margin: 24px 0;
+    margin: 1.5rem 0;
     border: 1px solid #eee;
     @include transition(background-color .3s ease);
 
@@ -129,20 +162,20 @@ footer {
 
     input[type="file"] {
       display: block;
-      height: 200px;
+      height: 13rem;
       opacity: 0;
     }
 
     h3 {
       position: absolute;
-      margin-top: 90px;
+      margin-top: 5.5rem;
       width: 100%;
       text-align: center;
       color: #ccc;
       @include transition(color .3s ease);
 
       &.loading {
-        margin-top: 63px;
+        margin-top: 4.5rem;
         color: #888;
         font-size: 4rem;
       }
@@ -159,7 +192,7 @@ footer {
 
 #wallpaper-settings {
   .preview {
-    height: 300px;
+    height: 16rem;
     .overlay {
       height: 100%;
       background: #fff;

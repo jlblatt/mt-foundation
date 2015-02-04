@@ -70,14 +70,13 @@ function mtSelectFile(iid)
         return;
       }
 
+      $("#filesystem .back").removeClass("active").unbind("click");
       if(currDir != "/")
       {
-        $fileList.append('<li class="icon back"><a>' + spacer + '<i class="fa fa-arrow-circle-left"></i><span class="filename">../ Back<span></a></li>')
+        $("#filesystem .back").addClass("active").click(function(){
+          $("#filesystem .breadcrumbs li.current").prev().find('a').click();
+        });
       }
-
-      $("#filesystem .files ul li.back a").click(function(){
-        $("#filesystem .breadcrumbs li.current").prev().find('a').click();
-      });
 
       data.reverse().sort(function(a,b) {
         return a.isdir ? -1 : 1;
@@ -203,6 +202,30 @@ $(document).ready(function() {
 
   //resize filesystem icons on window resize
   $(window).resize(mtSizeFSIcons);
+
+  //file upload button animation
+  $("#btn-new-file").click(function(){
+    $('html, body').animate({
+      scrollTop: parseInt($("#file-upload").offset().top) - 48
+    }, 600);   
+  });
+
+  //mkdir button
+  $("#btn-new-folder").click(function(){
+    var dirName = prompt("Please name your new folder:");
+
+    if(dirName != null && dirName != "") 
+    {
+      $.ajax({
+        url: $("#filesystem").data("url") + "mkdir.php",
+        data: {path : $("#filesystem").data("curr-directory") + dirName},
+        complete: function(data) {
+          mtSelectFile();
+        }
+      });
+    }
+  });
+  
 
   ////////////////////////
   // file uplaod
