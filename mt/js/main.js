@@ -396,10 +396,10 @@ $(document).ready(function() {
   $('#list-view table').each(function(){
     var data = eval($(this).data('json'));
     var columns = eval($(this).data('json') + "_columns");
-    console.log(columns);
     $(this).dataTable({
-      "data": data,
-      "columns": columns 
+      data: data,
+      columns: columns,
+      paging: false
     });
   });
 

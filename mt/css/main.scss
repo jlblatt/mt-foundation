@@ -29,7 +29,7 @@ header {
     }
 
     .name h1 {
-      font-size: 1.48rem;
+      font-size: 1.36rem;
 
       i.fa {
         width: 2.24rem;
@@ -244,5 +244,36 @@ footer {
     }
   }
 }
-  
 
+////////////////////
+//data index
+////////////////////
+
+#grid-view {
+  ul {
+    li {
+      text-align: center;
+      font-size: .7rem;
+      line-height: 1;
+      a {
+        display: block;
+        position: relative;
+        color: #444;
+        &:hover {
+          opacity: .85;
+        }
+        img {
+          width: 100%;
+        }
+        span.title {
+          display: block;
+          height: 1.4rem;
+          padding-top: .4rem;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+}
