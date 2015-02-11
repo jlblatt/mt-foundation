@@ -44,15 +44,15 @@ if(!$_mt['init'] && isset($_POST['install']))
     recurse_copy('conf/testdata/uploads', 'uploads');
     if(!$result) $failedReason = "Could not copy test template files.";
 
-    //add navigation
-    $mainnav = 
-      '<li class="divider"></li><li><a href="/mt/artists/">Artists</a></li>' . 
-      '<li class="divider"></li><li><a href="/mt/albums/">Albums</a></li>' . 
-      '<li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>';
-    $header = str_replace('<!--{{{mainnav}}}-->', $mainnav, file_get_contents('includes/header.php'));
-    $result = file_put_contents('includes/header.php', $header);
+    //add navigation (need to migrate into testdata somehow)
+    //$mainnav = 
+      //'<li class="divider"></li><li><a href="/mt/artists/">Artists</a></li>' . 
+      //'<li class="divider"></li><li><a href="/mt/albums/">Albums</a></li>' . 
+      //'<li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>';
+    //$header = str_replace('<!--{{{mainnav}}}-->', $mainnav, file_get_contents('includes/header.php'));
+    //$result = file_put_contents('includes/header.php', $header);
 
-    //add dashboard panels
+    //add dashboard panels (also in testdata somehow)
     
   }
 
