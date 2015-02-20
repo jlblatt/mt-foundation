@@ -345,6 +345,8 @@ $(document).ready(function() {
     $(this).find('.fa').removeClass('fa-spin');
   });
 
+  $('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});
+
   ////////////////////////
   // dashboard
   ////////////////////////
@@ -394,13 +396,7 @@ $(document).ready(function() {
   ////////////////////////
 
   $('#list-view table').each(function(){
-    var data = eval($(this).data('json'));
-    var columns = eval($(this).data('json') + "_columns");
-    $(this).dataTable({
-      data: data,
-      columns: columns,
-      paging: false
-    });
+    $(this).dataTable(eval($(this).data('dataobj') + "_data_obj"));
   });
 
 

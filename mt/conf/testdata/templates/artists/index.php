@@ -11,14 +11,17 @@ $json = json_encode($results);
 ?>
 
 <script>
-  var artists =  <?php echo $json; ?>;
-  var artists_columns = [
-    { "title": "ID" },
-    { "title": "Name" },
-    { "title": "Info" },
-    { "title": "Thumbnail" },
-    { "title": "Lastmod" }
-  ];
+  var artists_data_obj = {
+    data: <?php echo $json; ?>,
+    columns: [
+      { "title": "ID" },
+      { "title": "Name" },
+      { "title": "Info" },
+      { "title": "Thumbnail" },
+      { "title": "Lastmod" }
+    ],
+    paging: false
+  };
 </script>
 
 <div class="index">
@@ -34,13 +37,13 @@ $json = json_encode($results);
     <div class="content active" id="grid-view">
       <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
         <?php foreach($results as $result): ?>
-          <li><a href="/<?php echo $_mt['server_path']; ?>/artists/edit/<?php echo htmlspecialchars($result[0]); ?>" title="<?php echo htmlspecialchars($result[2]); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($result[3]); ?>" /><span class="title"><?php echo htmlspecialchars($result[1]); ?></span></a></li>
+          <li><a href="/<?php echo $_mt['server_path']; ?>/artists/edit/?id=<?php echo htmlspecialchars($result[0]); ?>" title="<?php echo htmlspecialchars($result[2]); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($result[3]); ?>" /><span class="title"><?php echo htmlspecialchars($result[1]); ?></span></a></li>
         <?php endforeach; ?>
       </ul>
     </div>
     
     <div class="content" id="list-view">
-      <table data-json="artists"></table>
+      <table data-dataobj="artists"></table>
     </div>
 
   </div>

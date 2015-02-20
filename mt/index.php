@@ -12,10 +12,11 @@
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery-ui.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.cookie.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.dataTables.js"></script>
-    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/fastclick.js"></script>
-    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/placeholder.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.iframe-transport.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.fileupload.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/jquery.BaconIpsum.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/fastclick.js"></script>
+    <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/placeholder.js"></script>
     <script src="/<?php echo $_mt['server_path']; ?>/js/vendor/foundation.js"></script>
 
     <script src="/<?php echo $_mt['server_path']; ?>/js/main.js" defer></script>

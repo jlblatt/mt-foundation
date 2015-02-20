@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 ob_start();
 
-$_mt['args'] = preg_split("/\//", $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
+$_mt['args'] = preg_split("/\//", preg_replace("/\?.*/", "", $_SERVER['REQUEST_URI']), -1, PREG_SPLIT_NO_EMPTY);
 
 if(!$_mt['args'])
 {
@@ -66,7 +66,7 @@ function _mt_404()
   global $_mt;
   $_mt['page_title'] = '404 - Not Found :(';
   $_mt['page'] = '404';
-  header($_SERVER['SERVER_PROTOCOL'] . '404 Not Found');
+  header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 }
 
 function _mt_500($msg)
@@ -75,7 +75,7 @@ function _mt_500($msg)
   $_mt['page_title'] = '500 - Internal Server Error :(';
   $_mt['page'] = '500';
   $_mt['msg'] = $msg;
-  header($_SERVER['SERVER_PROTOCOL'] . '500 Internal Server Error');
+  header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error');
 }
 
 

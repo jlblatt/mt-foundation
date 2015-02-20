@@ -2,6 +2,8 @@
 
 $xsmall: 360px;
 $small: 640px;
+$medium: 1024px;
+$large: 1440px;
 
 body {
   min-height: 100%;
@@ -222,6 +224,17 @@ footer {
   }
 }
 
+#error {
+  text-align: center;
+  h1 {
+    font-size: 6rem;
+    line-height: 1;
+    @media (min-width: $small) {
+      font-size: 10rem;  
+    }
+  }
+}
+
 ////////////////////
 //dashboard
 ////////////////////
@@ -275,5 +288,36 @@ footer {
       }
     }
   }
+}
 
+////////////////////
+//data edit
+////////////////////
+
+#edit {
+  .image {
+    margin: 0 0 2rem 0;
+
+    @media (min-width: $small) {
+      float: right;
+      max-width: 50%;
+      margin:  0 0 4rem 4rem;
+    }
+
+    img {
+      height: auto;
+      width: auto;
+      max-width: 100%;
+      border: 1px solid #666;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 1);
+
+      @media (min-width: $small) {
+        max-height: 20rem;
+      }
+      @media (min-width: $medium) {
+        max-height: 30rem;
+      }
+
+    }
+  }
 }
