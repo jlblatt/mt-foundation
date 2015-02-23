@@ -53,6 +53,10 @@ if(!$_mt['init'] && isset($_POST['install']))
     //$result = file_put_contents('includes/header.php', $header);
 
     //add dashboard panels (also in testdata somehow)
+
+    //testdata js
+
+    //testdata css
     
   }
 

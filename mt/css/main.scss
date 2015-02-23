@@ -295,6 +295,28 @@ footer {
 ////////////////////
 
 #edit {
+
+  .field-editable:not(.editing) {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #008cba;
+      &:after {
+        content: " \f040";
+        font-family: FontAwesome;
+      }
+    }
+  }
+
+  .field-editable.editing {
+    padding-left: 1rem;
+    border-left: 3px dashed #ccc;
+    &:hover {
+      cursor: insert;
+    }
+    outline: none;
+  }
+
   .image {
     margin: 0 0 2rem 0;
 

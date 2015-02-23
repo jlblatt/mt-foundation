@@ -345,7 +345,7 @@ $(document).ready(function() {
     $(this).find('.fa').removeClass('fa-spin');
   });
 
-  $('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});
+  //$('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});
 
   ////////////////////////
   // dashboard
@@ -399,6 +399,49 @@ $(document).ready(function() {
     $(this).dataTable(eval($(this).data('dataobj') + "_data_obj"));
   });
 
+
+  ////////////////////////
+  // editable fields
+  ////////////////////////
+
+  var changed = false;
+
+  $("#edit").submit(function(){
+    changed = false;
+  })
+
+  $(window).on('beforeunload', function(){
+    if(changed) return "Discard changes?";
+  });
+
+  $(".field-editable")
+    .click(function(e){
+      $(".field-editable")
+        .attr('contenteditable', false)
+        .removeClass('editing');
+
+      $(this)
+        .attr('contenteditable', true)
+        .addClass('editing')
+        .focus();
+
+      e.stopPropagation();
+    })
+
+    .keyup(function(){
+      var field = $(this).data('field');
+      var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '');
+      $('input[type="hidden"][name="' + field+ '"]').val(val);
+      $('#edit input[type="submit"]').removeClass('secondary disabled')
+      changed = true;
+    })
+  ;
+
+  $("body").click(function(){
+    $(".field-editable")
+      .attr('contenteditable', false)
+      .removeClass('editing');
+  });
 
 
 });  //document.ready
