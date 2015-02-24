@@ -151,25 +151,6 @@ function mtSizeFSIcons()
   }
 }
 
-////////////////////////
-// wallpaper
-////////////////////////
-
-function mtSetWallpaper(url)
-{
-  if(url) $("#wallpaper-settings").data("url", url).foundation("reveal", "open");
-  url = $("#wallpaper-settings").data("url");
-
-  $("#wallpaper-settings .preview").css({
-    backgroundImage: "url('" + url + "')",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    backgroundAttachment: "fixed"
-  });
-}
-
-
-
 
 
 
@@ -285,6 +266,19 @@ $(document).ready(function() {
   ////////////////////////
   // wallpaper
   ////////////////////////
+
+  window.mtSetWallpaper = function(url)
+  {
+    if(url) $("#wallpaper-settings").data("url", url).foundation("reveal", "open");
+    url = $("#wallpaper-settings").data("url");
+
+    $("#wallpaper-settings .preview").css({
+      backgroundImage: "url('" + url + "')",
+      backgroundSize: "cover",
+      backgroundPosition: "center center",
+      backgroundAttachment: "fixed"
+    });
+  }
 
   $("#wallpaper-settings .range-slider").on('change.fndtn.slider', function(){
     $("#wallpaper-settings .preview .overlay").css({
@@ -404,7 +398,7 @@ $(document).ready(function() {
   // editable fields
   ////////////////////////
 
-  var changed = false;
+  window.changed = false;
 
   $("#edit").submit(function(){
     changed = false;
@@ -432,7 +426,7 @@ $(document).ready(function() {
       var field = $(this).data('field');
       var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '');
       $('input[type="hidden"][name="' + field+ '"]').val(val);
-      $('#edit input[type="submit"]').removeClass('secondary disabled')
+      $('#edit input[type="submit"]').removeClass('secondary disabled');
       changed = true;
     })
   ;
@@ -443,6 +437,21 @@ $(document).ready(function() {
       .removeClass('editing');
   });
 
+  window.mtImageEdit = function mtImageEdit(url)
+  {
+    $("#file-browser").foundation("reveal", "close");
+    if(url)
+    {
+      $(".image-editable img").attr('src', url);
+      $('input[type="hidden"][name="f_image"]').val(url.replace(/.*\/uploads\//, ""));
+      $('#edit input[type="submit"]').removeClass('secondary disabled');
+      changed = true;
+    }
+  }
+
+  $(".confirm-delete").submit(function(){
+    return confirm("Are you sure you want to delete this " + $(this).data('type') + "?");
+  });
 
 });  //document.ready
 

@@ -8,11 +8,12 @@
 
   global $conn;
 
-  if(isset($_POST['submit']))
+  if(isset($_POST['submit']) && isset($_GET['id']))
   {
     $sql = "update " . $_mt['tblprefix'] . "artists set 
       name = :name,
       description = :description,
+      image = :image,
       date_modified = now()
     where id = :id";
     
@@ -20,10 +21,10 @@
     $st->bindValue(":id", $_GET['id'], PDO::PARAM_INT);
     $st->bindValue(":name", $_POST['f_name'], PDO::PARAM_STR);
     $st->bindValue(":description", $_POST['f_description'], PDO::PARAM_STR);
+    $st->bindValue(":image", $_POST['f_image'], PDO::PARAM_STR);
 
     if($st->execute()) echo '<div data-alert class="alert-box success">Artist updated.</div>';
     else echo '<div data-alert class="alert-box alert">Artist update failed :( - Error code: ' . $st->errorInfo() . '</div>';
-
   }
 
   $sql = "select * from " . $_mt['tblprefix'] . "artists where id = :id";
@@ -42,8 +43,8 @@
 
 <?php $artist = $results[0]; ?>
 
-<form method="post" id="edit">    
-  <div class="image">
+<form method="post" id="edit" class="clearfix">    
+  <div class="image-editable" data-reveal-id="file-browser" data-instance-id="mtImageEdit">
     <img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($artist['image']); ?>" />
     <input type="hidden" name="f_image" value="<?php echo htmlspecialchars($artist['image']); ?>" />
   </div>
@@ -59,7 +60,7 @@
 
 <?php
   
-  $albumText = '<h2>Albums by ' . $artist['name'] . '</h2>';
+  $albumText = '<h3>Albums by ' . $artist['name'] . '</h3>';
 
   $sql = "select * from " . $_mt['tblprefix'] . "albums where artist_id = :id";
   $st = $conn->prepare($sql);
@@ -68,15 +69,23 @@
   $results = $st->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<?php if($results) echo $albumText; ?>
+<?php if($results): ?>
+  <?php echo $albumText; ?>
+  <div id="grid-view" class="related">
+    <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
+      <?php foreach($results as $result): ?>
+        <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($result['thumbnail']); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?></span></a></li>
+      <?php endforeach; ?>
+    </ul>  
+  </div>
+<?php endif; ?>
 
-<div id="grid-view" class="related">
-  <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
-    <?php foreach($results as $result): ?>
-      <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($result['thumbnail']); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?></span></a></li>
-    <?php endforeach; ?>
-  </ul>  
-</div>
+<form method="post" action="/<?php echo $_mt['server_path']; ?>/artists/" class="confirm-delete" data-type="artist">
+  <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+  <p>&nbsp;</p>
+  <p class="text-center"><input type="submit" class="button alert" value="Delete This Artist" name="delete" /><p>
+</form>
+
 
 
 

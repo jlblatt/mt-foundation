@@ -297,6 +297,7 @@ footer {
 #edit {
 
   .field-editable:not(.editing) {
+    padding-left: 1.2rem;
     &:hover {
       cursor: pointer;
       text-decoration: underline;
@@ -310,14 +311,15 @@ footer {
 
   .field-editable.editing {
     padding-left: 1rem;
-    border-left: 3px dashed #ccc;
+    border-left: .2rem dashed #ccc;
+    color: #666;
     &:hover {
       cursor: insert;
     }
     outline: none;
   }
 
-  .image {
+  .image-editable {
     margin: 0 0 2rem 0;
 
     @media (min-width: $small) {
@@ -339,7 +341,19 @@ footer {
       @media (min-width: $medium) {
         max-height: 30rem;
       }
-
+    }
+    
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+      &:before {
+        content: "\f14b";
+        font-family: FontAwesome;
+        font-size: 3rem;
+        position: absolute;
+        margin-left: 1rem;
+        color: #008cba; 
+      }
     }
   }
 }

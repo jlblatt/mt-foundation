@@ -82,8 +82,7 @@ if(!$_mt['init'] && isset($_POST['install']))
   if($result === false) $failedReason = "Could not write to .htaccess.";
 
   //setup conf file
-  $result = file_put_contents("conf/conf.php", "
-      <?php
+  $result = file_put_contents("conf/conf.php", "<?php
       //begin database conf
       \$_mt['dbhost'] = '{$_POST['dbhost']}';
       \$_mt['dbname'] = '{$_POST['dbname']}';
