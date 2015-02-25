@@ -35,20 +35,45 @@ header {
 
       i.fa {
         width: 2.24rem;
+        text-align: center;
       }
     }
 
     .top-bar-section {
-      i.fa {
-        position: relative;
-        top: .1rem;
-        font-size: 1.3rem;
+      .has-dropdown {
+        a:after {
+          border-color: rgba(255, 255, 255, 1) transparent transparent;
+        }
       }
 
-      .has-dropdown > a:after {
-        border-color: rgba(255, 255, 255, 1) transparent transparent;
+      .right {
+        > li > a > i.fa {
+          position: relative;
+          top: .1rem;
+          font-size: 1.3rem;
+        }
+
+        .has-dropdown {
+          ul li {
+            text-align: right;
+            i.fa {
+              margin: 0 0 0 .4rem;
+              font-size: .9rem;
+            }
+          }
+        }
+      }
+
+      .left {
+        .has-dropdown {
+          ul i.fa {
+            margin: 0 .4rem 0 0;
+            font-size: .9rem;
+          }
+        }
       }
     }
+
   }
   
   .breadcrumbs {

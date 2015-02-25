@@ -326,6 +326,47 @@ $(document).ready(function() {
   if($.cookie("mtWallpaperURL") && $.cookie("mtWallpaperOpacity")) setWallpaper();
 
   ////////////////////////
+  // fullscreen
+  ////////////////////////
+  $("#toggle-fullscreen").click(function(){
+    var fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled;
+    
+    if(fullscreenEnabled)
+    {
+      if($(this).hasClass('fullscreen'))
+      {
+        $(this).find("i.fa").removeClass("fa-compress").addClass("fa-expand");
+
+        if(document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+
+      else
+      {
+        $(this).find("i.fa").removeClass("fa-expand").addClass("fa-compress");
+
+        var el = document.documentElement;
+        if(el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if(el.mozRequestFullScreen) {
+          el.mozRequestFullScreen();
+        } else if(el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        } else if(el.msRequestFullscreen) {
+          el.msRequestFullscreen();
+        }
+      }
+
+      $(this).toggleClass('fullscreen');
+    }
+  });
+
+  ////////////////////////
   // assorted ui
   ////////////////////////
 
@@ -333,10 +374,10 @@ $(document).ready(function() {
   var icon = icons[Math.floor(Math.random()*icons.length)];
   $(".top-bar .name h1 a").prepend('<i class="fa fa-' + icon + '"></i>');
 
-  $(".top-bar .has-dropdown").hover(function(){
-    $(this).find('.fa').addClass('fa-spin');
+  $(".top-bar .right .has-dropdown").hover(function(){
+    $(this).find('i.fa-cog').addClass('fa-spin');
   }, function() {
-    $(this).find('.fa').removeClass('fa-spin');
+    $(this).find('i.fa-cog').removeClass('fa-spin');
   });
 
   //$('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});

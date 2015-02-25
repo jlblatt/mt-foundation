@@ -44,7 +44,7 @@ if(!$_mt['init'] && isset($_POST['install']))
     recurse_copy('conf/testdata/uploads', 'uploads');
     if(!$result) $failedReason = "Could not copy test template files.";
 
-    //add navigation (need to migrate into testdata somehow)
+    //add navigation (need to migrate into testdata somehow) - replace /mt/ with correct path as well
     //$mainnav = 
       //'<li class="divider"></li><li><a href="/mt/artists/">Artists</a></li>' . 
       //'<li class="divider"></li><li><a href="/mt/albums/">Albums</a></li>' . 

@@ -4,7 +4,7 @@
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
         <li class="name">
-          <h1><a href="/<?php echo $_mt['server_path']; ?>/">mt-foundation</a></h1>
+          <h1><a href="/<?php echo $_mt['server_path']; ?>/" title="mt-foundation"></a></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a><span></span></a></li>
       </ul>
@@ -14,13 +14,24 @@
           <li class="has-dropdown">
             <a><i class="fa fa-cog"></i></a>
             <ul class="dropdown">
-              <li><a data-reveal-id="file-browser" data-instance-id="mtSetWallpaper">Set Wallpaper</a></li>
+              <li><a data-reveal-id="file-browser" data-instance-id="mtSetWallpaper">Set Wallpaper<i class="fa fa-picture-o"></i></a></li>
+              <li><a id="toggle-fullscreen">Toggle Fullscreen<i class="fa fa-expand"></i></a></li>
             </ul>
           </li>
         </ul>
 
         <ul class="left">
-          <li class="divider"></li><li><a href="/mt/artists/">Artists</a></li><li class="divider"></li><li><a href="/mt/albums/">Albums</a></li><li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>
+          <li class="divider"></li>
+          <li class="has-dropdown">
+            <a href="/mt/artists/">Artists</a>
+            <ul class="dropdown">
+              <li><a href="/mt/artists/create/"><i class="fa fa-plus-square"></i>Create</a></li>
+            </ul>
+          </li>
+          <li class="divider"></li>
+          <li><a href="/mt/albums/">Albums</a></li>
+          <li class="divider"></li>
+          <li><a href="/mt/songs/">Songs</a></li>
         </ul>
       </section>
     </nav>
