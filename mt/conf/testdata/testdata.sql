@@ -3,7 +3,7 @@ drop table if exists {{{prefix}}}albums;
 drop table if exists {{{prefix}}}songs;
 
 create table if not exists {{{prefix}}}artists (
-  id bigint(1) not null,
+  id bigint(1) not null auto_increment,
   name text,
   description text,
   image text,
@@ -13,7 +13,7 @@ create table if not exists {{{prefix}}}artists (
 );
 
 create table if not exists {{{prefix}}}albums (
-  id bigint(1) not null,
+  id bigint(1) not null auto_increment,
   title text,
   image text,
   pubyear smallint(4),

@@ -9,6 +9,10 @@ body {
   min-height: 100%;
 }
 
+textarea {
+  min-height: 14.8rem;
+}
+
 #main {
   min-height: 100%;
   padding: 1.5rem;
@@ -316,7 +320,7 @@ footer {
 }
 
 ////////////////////
-//data edit
+//data add/edit
 ////////////////////
 
 #edit {
@@ -373,6 +377,47 @@ footer {
       opacity: .8;
       &:before {
         content: "\f14b";
+        font-family: FontAwesome;
+        font-size: 3rem;
+        position: absolute;
+        margin-left: 1rem;
+        color: #008cba; 
+      }
+    }
+  }
+}
+
+#create {
+  .image-editable {
+    min-height: 18rem;
+
+    &.unset {
+      border: 1px dashed #aaa;
+      background: rgba(0,0,0,.05);
+      img {
+        display: none;
+      }
+      input {
+        float: right;
+        margin-top: 9rem;
+        width: 50%;
+      }
+    }
+
+    input {
+      visibility: hidden;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+      &:before {
+        content: "\f03e";
         font-family: FontAwesome;
         font-size: 3rem;
         position: absolute;

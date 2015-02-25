@@ -441,7 +441,7 @@ $(document).ready(function() {
 
   window.changed = false;
 
-  $("#edit").submit(function(){
+  $("#edit, #create").submit(function(){
     changed = false;
   })
 
@@ -483,8 +483,9 @@ $(document).ready(function() {
     $("#file-browser").foundation("reveal", "close");
     if(url)
     {
+      $(".image-editable").removeClass("unset");
       $(".image-editable img").attr('src', url);
-      $('input[type="hidden"][name="f_image"]').val(url.replace(/.*\/uploads\//, ""));
+      $('input[name="f_image"]').val(url.replace(/.*\/uploads\//, "")).prop("readonly", false);
       $('#edit input[type="submit"]').removeClass('secondary disabled');
       changed = true;
     }
