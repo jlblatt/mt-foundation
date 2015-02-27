@@ -132,7 +132,7 @@ foreach($allAlbums as $artist => $albums)
 {
   foreach($albums as $album)
   {
-    $sql .= sprintf("insert into {{{prefix}}}albums (id, title, image, thumbnail, pubyear, artist_id) values (%u, '%s', '%s', '%s', %u, %u);\n",
+    $sql .= sprintf("insert into {{{prefix}}}albums (id, title, image, thumbnail, pubyear, artist_id, date_created, date_modified) values (%u, '%s', '%s', '%s', %u, %u, now(), now());\n",
       $album->id,
       sqlescape($album->title),
       sqlescape(''),
@@ -146,7 +146,7 @@ foreach($allAlbums as $artist => $albums)
 $sql .= "\n# songs ###################################\n\n";
 foreach($allSongs as $song)
 {
-  $sql .= sprintf("insert into {{{prefix}}}songs (title, track_no, album_id) values ('%s', %u, %u);\n",
+  $sql .= sprintf("insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('%s', %u, %u, now(), now());\n",
     sqlescape($song->title),
     $song->num,
     $song->album_id
