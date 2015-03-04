@@ -451,31 +451,47 @@ $(document).ready(function() {
 
   $(".field-editable")
     .click(function(e){
-      $(".field-editable")
-        .attr('contenteditable', false)
-        .removeClass('editing');
-
-      $(this)
-        .attr('contenteditable', true)
-        .addClass('editing')
-        .focus();
-
+      if(!$(this).hasClass("editing"))
+      {
+        $(this)
+          .attr('contenteditable', true)
+          .addClass('editing')
+          .focus();
+      }
+  
       e.stopPropagation();
     })
 
     .keyup(function(){
-      var field = $(this).data('field');
-      var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '');
-      $('input[type="hidden"][name="' + field+ '"]').val(val);
       $('#edit input[type="submit"]').removeClass('secondary disabled');
       changed = true;
+    })
+
+    .blur(function(){
+      var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '');
+      $(this).html(val);
+      $('input[type="hidden"][name="' + $(this).data('field') + '"]').val(val);
+
+      if($(this).hasClass("year"))
+      {
+        var year = $(this).html().replace(/\D/g, "").substring(0,4);
+        $(this).html(year);
+        $('input[type="hidden"][name="' + $(this).data('field') + '"]').val(year);
+      }
+
+      if($(this).hasClass("int"))
+      {
+        var num = $(this).html().replace(/\D/g, "");
+        $(this).html(num);
+        $('input[type="hidden"][name="' + $(this).data('field') + '"]').val(num);
+      }
+
+      $(this).attr('contenteditable', false).removeClass('editing');
     })
   ;
 
   $("body").click(function(){
-    $(".field-editable")
-      .attr('contenteditable', false)
-      .removeClass('editing');
+    $(".field-editable").blur();
   });
 
   window.mtImageEdit = function mtImageEdit(url)
