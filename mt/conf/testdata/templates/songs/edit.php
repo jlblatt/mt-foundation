@@ -12,12 +12,14 @@
   {
     $sql = "update " . $_mt['tblprefix'] . "songs set 
       title = :title,
+      album_id = :album_id,
       track_no = :track_no,
       date_modified = now()
     where id = :id";
     
     $st = $conn->prepare($sql);
     $st->bindValue(":id", $_GET['id'], PDO::PARAM_INT);
+    $st->bindValue(":album_id", $_POST['f_album_id'], PDO::PARAM_INT);
     $st->bindValue(":title", $_POST['f_title'], PDO::PARAM_STR);
     $st->bindValue(":track_no", $_POST['f_track_no'], PDO::PARAM_STR);
 
@@ -25,7 +27,7 @@
     else echo '<div data-alert class="alert-box alert">Song update failed :( - Error code: ' . $st->errorInfo() . '</div>';
   }
 
-  $sql = "select * from " . $_mt['tblprefix'] . "songs where id = :id";
+  $sql = "select *, (select title from " . $_mt['tblprefix'] . "albums where id = album_id) as album from " . $_mt['tblprefix'] . "songs where id = :id";
   $st = $conn->prepare($sql);
   $st->bindValue(":id", $_GET['id'] ,PDO::PARAM_INT);
   $st->execute();
@@ -41,9 +43,35 @@
 
 <?php $song = $results[0]; ?>
 
+<?php 
+  $sql = "select id, title from " . $_mt['tblprefix'] . "albums order by title";
+  $st = $conn->prepare($sql);
+  $st->execute();
+  $results = $st->fetchAll(PDO::FETCH_NUM);
+  $albums = $results;
+?>
+
 <form method="post" id="edit" class="clearfix">    
   <h1 class="field-editable" data-field="f_title"><?php echo $song['title']; ?></h1>
   <input type="hidden" name="f_title" value="<?php echo htmlspecialchars($song['title']); ?>" />
+
+  <h5 class="field-editable strong relational" data-reveal-id="album-select"><?php echo $song['album']; ?></h5>
+  <input type="hidden" name="f_album_id" value="<?php echo htmlspecialchars($album['artist_id']); ?>" />
+
+  <script>
+    var albums_data_obj = {
+      data: <?php echo json_encode($albums); ?>,
+      columns: [
+        { "title": "ID" },
+        { "title": "Title" }
+      ],
+      paging: false
+    };
+  </script>
+
+  <div id="album-select" class="reveal-modal relational" data-reveal data-field="f_album_id">
+    <table class="smart-table" data-dataobj="albums"></table>
+  </div>
   
   <p class="field-editable int" data-field="f_track_no"><?php echo $song['track_no']; ?></p>
   <input type="hidden" name="f_track_no" value="<?php echo htmlspecialchars($song['track_no']); ?>" />

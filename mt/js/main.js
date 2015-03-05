@@ -430,7 +430,7 @@ $(document).ready(function() {
   // list views
   ////////////////////////
 
-  $('#list-view table').each(function(){
+  $('.smart-table').each(function(){
     $(this).dataTable(eval($(this).data('dataobj') + "_data_obj"));
   });
 
@@ -451,7 +451,7 @@ $(document).ready(function() {
 
   $(".field-editable")
     .click(function(e){
-      if(!$(this).hasClass("editing"))
+      if(!$(this).hasClass("editing") && !$(this).hasClass("relational"))
       {
         $(this)
           .attr('contenteditable', true)
@@ -459,7 +459,7 @@ $(document).ready(function() {
           .focus();
       }
   
-      e.stopPropagation();
+      if(!$(this).hasClass("relational")) e.stopPropagation();
     })
 
     .keyup(function(){
@@ -506,6 +506,18 @@ $(document).ready(function() {
       changed = true;
     }
   }
+
+  $(".reveal-modal.relational table").on("click", "tbody tr", function(){
+    var field = $(this).parents(".reveal-modal.relational").data("field");
+    var id = $(this).find("td:first-child").text();
+    var name = $(this).find("td:last-child").html();
+    $('.field-editable.relational[data-reveal-id="' + $(this).parents(".reveal-modal.relational").attr('id') + '"]').html(name);
+    $('input[type="hidden"][name="' + field + '"]').val(id);
+    
+    $('#edit input[type="submit"]').removeClass('secondary disabled');
+    changed = true;
+    $(this).parents(".reveal-modal.relational").foundation("reveal", "close");
+  });
 
   $(".confirm-delete").submit(function(){
     return confirm("Are you sure you want to delete this " + $(this).data('type') + "?");

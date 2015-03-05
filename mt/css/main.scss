@@ -325,6 +325,17 @@ footer {
 
 #edit {
 
+  h1 {
+    position: relative;
+    left: -1.2rem;
+  }
+
+  .field-editable {
+    &.strong {
+      font-weight: bold;
+    }
+  }
+
   .field-editable:not(.editing) {
     padding-left: 1.2rem;
     &:hover {

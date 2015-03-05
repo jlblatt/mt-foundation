@@ -69,7 +69,7 @@ $json = json_encode($results);
     </div>
     
     <div class="content" id="list-view">
-      <table data-dataobj="albums"></table>
+      <table class="smart-table" data-dataobj="albums"></table>
     </div>
 
   </div>
