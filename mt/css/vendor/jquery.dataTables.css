@@ -219,4 +219,8 @@ div.DTFC_LeftFootWrapper table {
 }
 
 
+/* CUSTOM */
 
+div.dataTables_filter {
+  padding-bottom: 1rem;
+}

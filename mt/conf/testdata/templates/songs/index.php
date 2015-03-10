@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Song delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, title, (select title from " . $_mt['tblprefix'] . "albums where id = album_id), (select artist_id from " . $_mt['tblprefix'] . "albums where id = album_id) as artist_id, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, track_no, date_modified from " . $_mt['tblprefix'] . "songs order by date_modified desc";
+$sql = "select id, title, album_id, (select title from " . $_mt['tblprefix'] . "albums where id = album_id), (select artist_id from " . $_mt['tblprefix'] . "albums where id = album_id) as artist_id, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, track_no, date_modified from " . $_mt['tblprefix'] . "songs order by date_modified desc";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -26,13 +26,20 @@ $json = json_encode($results);
   var albums_data_obj = {
     data: <?php echo $json; ?>,
     columns: [
-      { "title": "ID" },
-      { "title": "Title" },
-      { "title": "Album" },
-      { "title": "Artist ID" },
-      { "title": "Artist" },
-      { "title": "Track No." },
-      { "title": "Lastmod" }
+      { title: "ID", visible: false },
+      { title: "Title", data: function(row){
+        return '<div class="title-wrap"><a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=' + row[0] + '">' + row[1] + '</a></div>';
+      }},
+      { title: "Album ID", visible: false },
+      { title: "Album", data: function(row){
+        return '<a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=' + row[2] + '">' + row[3] + '</a>';
+      }},
+      { title: "Artist ID", visible: false },
+      { title: "Artist", data: function(row){
+        return '<a href="/<?php echo $_mt['server_path']; ?>/artists/edit/?id=' + row[4] + '">' + row[5] + '</a>';
+      }},
+      { title: "Track No." },
+      { title: "Lastmod" }
     ],
     paging: false
   };

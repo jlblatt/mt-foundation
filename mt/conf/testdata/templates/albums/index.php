@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Album delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, title, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, pubyear, image, date_modified from " . $_mt['tblprefix'] . "albums order by date_modified desc";
+$sql = "select id, title, image, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, pubyear, date_modified from " . $_mt['tblprefix'] . "albums order by date_modified desc";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -26,12 +26,19 @@ $json = json_encode($results);
   var albums_data_obj = {
     data: <?php echo $json; ?>,
     columns: [
-      { "title": "ID" },
-      { "title": "Title" },
-      { "title": "Artist" },
-      { "title": "Year" },
-      { "title": "Thumbnail" },
-      { "title": "Lastmod" }
+      { title: "ID", visible: false },
+      { title: "Title", data: function(row){
+        return '<div class="title-wrap"><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=' + row[0] + '">' + row[1] + '</a></div>';
+      }},
+      { title: "Thumbnail", orderable: false, data: function(row){
+        var imgParts = row[2].split('/');
+        imgParts.splice(imgParts.length - 1, 0, 'thumbnail');
+        var thumbSrc = imgParts.join('/');
+        return '<div class="img-wrap"><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=' + row[0] + '"><img src="/<?php echo $_mt['server_path']; ?>/uploads/' + thumbSrc + '" /></a></div>'; 
+      }},
+      { title: "Artist" },
+      { title: "Year" },
+      { title: "Lastmod" }
     ],
     paging: false
   };
@@ -54,12 +61,12 @@ $json = json_encode($results);
       <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
         <?php foreach($results as $result): ?>
           <?php 
-            $imgParts = explode('/', $result[3]);
+            $imgParts = explode('/', $result[2]);
             array_splice($imgParts, count($imgParts) - 1, 0, 'thumbnail');
             $thumbSrc = implode('/', $imgParts);
           ?>
           <li>
-            <a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result[0]); ?>" title="<?php echo htmlspecialchars($result[2]); ?>">
+            <a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result[0]); ?>" title="<?php echo htmlspecialchars($result[1]); ?>">
               <img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($thumbSrc); ?>" />
               <span class="title"><?php echo htmlspecialchars($result[1]); ?></span>
             </a>

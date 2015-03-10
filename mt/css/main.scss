@@ -332,6 +332,26 @@ footer {
   }
 }
 
+#list-view {
+  table {
+    td {
+      .title-wrap {
+        min-width: 8rem;
+        font-size: 1.1rem;
+      }
+      .img-wrap {
+        img {
+          width: 4rem;
+          height: auto;
+          &:hover {
+            opacity: .85;
+          }
+        }
+      }
+    }
+  }
+}
+
 ////////////////////
 //data add/edit
 ////////////////////
