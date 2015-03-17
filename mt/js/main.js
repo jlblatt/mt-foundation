@@ -434,6 +434,11 @@ $(document).ready(function() {
     $(this).dataTable(eval($(this).data('dataobj') + "_data_obj"));
   });
 
+  $(".index .tabs a").click(function(){
+    $.cookie("mtIndexView", $(this).attr("title"), { expires: 3650, path: '/' });
+  });
+
+
 
   ////////////////////////
   // editable fields

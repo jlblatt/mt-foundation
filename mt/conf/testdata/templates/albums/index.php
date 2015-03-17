@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Album delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, title, image, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, pubyear, date_modified from " . $_mt['tblprefix'] . "albums order by date_modified desc";
+$sql = "select id, title, image, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, pubyear, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "albums";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -25,12 +25,13 @@ $json = json_encode($results);
 <script>
   var albums_data_obj = {
     data: <?php echo $json; ?>,
+    order: [[ 5, "desc" ]],
     columns: [
       { title: "ID", visible: false },
       { title: "Title", data: function(row){
         return '<div class="title-wrap"><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=' + row[0] + '">' + row[1] + '</a></div>';
       }},
-      { title: "Thumbnail", orderable: false, data: function(row){
+      { title: "", orderable: false, data: function(row){
         var imgParts = row[2].split('/');
         imgParts.splice(imgParts.length - 1, 0, 'thumbnail');
         var thumbSrc = imgParts.join('/');
@@ -38,7 +39,10 @@ $json = json_encode($results);
       }},
       { title: "Artist" },
       { title: "Year" },
-      { title: "Lastmod" }
+      { title: "Modified", data: function(row){
+        var lastmod = row[5] ? row[5] : "";
+        return '<div class="lastmod">' + lastmod + '</div>';
+      }}
     ],
     paging: false
   };
@@ -49,15 +53,15 @@ $json = json_encode($results);
   <?php echo $deleteAlert; ?>
 
   <ul class="tabs right" data-tab>
-    <li class="tab-title active"><a title="Grid View" href="#grid-view"><i class="fa fa-th"></i><span class="show-for-small-only">&nbsp;Grid View</span></a></li>
-    <li class="tab-title"><a title="List View" href="#list-view"><i class="fa fa-list"></i><span class="show-for-small-only">&nbsp;List View</span></a></li>
+    <li class="tab-title <?php if(!isset($_COOKIE['mtIndexView']) || $_COOKIE['mtIndexView'] == 'Grid View') echo 'active'; ?>"><a title="Grid View" href="#grid-view"><i class="fa fa-th"></i><span class="show-for-small-only">&nbsp;Grid View</span></a></li>
+    <li class="tab-title <?php if(isset($_COOKIE['mtIndexView']) && $_COOKIE['mtIndexView'] == 'List View') echo 'active'; ?>"><a title="List View" href="#list-view"><i class="fa fa-list"></i><span class="show-for-small-only">&nbsp;List View</span></a></li>
   </ul>
 
   <h1>Albums</h1>
 
   <div class="tabs-content">
     
-    <div class="content active" id="grid-view">
+    <div class="content <?php if(!isset($_COOKIE['mtIndexView']) || $_COOKIE['mtIndexView'] == 'Grid View') echo 'active'; ?>" id="grid-view">
       <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
         <?php foreach($results as $result): ?>
           <?php 
@@ -75,7 +79,7 @@ $json = json_encode($results);
       </ul>
     </div>
     
-    <div class="content" id="list-view">
+    <div class="content <?php if(isset($_COOKIE['mtIndexView']) && $_COOKIE['mtIndexView'] == 'List View') echo 'active'; ?>" id="list-view">
       <table class="smart-table" data-dataobj="albums"></table>
     </div>
 

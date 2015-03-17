@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Song delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, title, album_id, (select title from " . $_mt['tblprefix'] . "albums where id = album_id), (select artist_id from " . $_mt['tblprefix'] . "albums where id = album_id) as artist_id, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, track_no, date_modified from " . $_mt['tblprefix'] . "songs order by date_modified desc";
+$sql = "select id, title, album_id, (select title from " . $_mt['tblprefix'] . "albums where id = album_id), (select artist_id from " . $_mt['tblprefix'] . "albums where id = album_id) as artist_id, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, track_no, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "songs";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -25,6 +25,7 @@ $json = json_encode($results);
 <script>
   var albums_data_obj = {
     data: <?php echo $json; ?>,
+    order: [[ 7, "desc" ]],
     columns: [
       { title: "ID", visible: false },
       { title: "Title", data: function(row){
@@ -39,7 +40,10 @@ $json = json_encode($results);
         return '<a href="/<?php echo $_mt['server_path']; ?>/artists/edit/?id=' + row[4] + '">' + row[5] + '</a>';
       }},
       { title: "Track No." },
-      { title: "Lastmod" }
+      { title: "Modified", data: function(row){
+        var lastmod = row[7] ? row[7] : "";
+        return '<div class="lastmod">' + lastmod + '</div>';
+      }}
     ],
     paging: false
   };
