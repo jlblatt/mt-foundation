@@ -23,15 +23,20 @@
         <ul class="left">
           <li class="divider"></li>
           <li class="has-dropdown">
-            <a href="/mt/artists/">Artists</a>
+            <a href="/<?php echo $_mt['server_path']; ?>/artists/">Artists</a>
             <ul class="dropdown">
-              <li><a href="/mt/artists/create/"><i class="fa fa-plus-square"></i>Create</a></li>
+              <li><a href="/<?php echo $_mt['server_path']; ?>/artists/create/"><i class="fa fa-plus-square"></i>Create</a></li>
             </ul>
           </li>
           <li class="divider"></li>
-          <li><a href="/mt/albums/">Albums</a></li>
+          <li class="has-dropdown">
+            <a href="/<?php echo $_mt['server_path']; ?>/albums/">Albums</a>
+            <ul class="dropdown">
+              <li><a href="/<?php echo $_mt['server_path']; ?>/albums/create/"><i class="fa fa-plus-square"></i>Create</a></li>
+            </ul>
+          </li>
           <li class="divider"></li>
-          <li><a href="/mt/songs/">Songs</a></li>
+          <li><a href="/<?php echo $_mt['server_path']; ?>/songs/">Songs</a></li>
         </ul>
       </section>
     </nav>

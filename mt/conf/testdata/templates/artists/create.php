@@ -34,7 +34,7 @@
     </div>
     <div class="medium-6 columns">
       <div class="image-editable unset" data-reveal-id="file-browser" data-instance-id="mtImageEdit">
-        <img class="empty" src="<?php echo htmlspecialchars($_POST['f_image']); ?>" />
+        <img class="empty" <?php if(isset($_POST['f_image'])): ?>src="<?php echo htmlspecialchars($_POST['f_image']); ?>"<?php endif; ?> />
         <input type="text" name="f_image" required value="<?php echo isset($_POST['f_image']) ? htmlspecialchars($_POST['f_image']) : ''; ?>" />
       </div>
     </div>

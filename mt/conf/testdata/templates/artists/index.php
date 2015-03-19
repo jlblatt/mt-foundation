@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Artist delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, name, image, description, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "artists";
+$sql = "select id, name, image, description, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "artists order by date_modified desc";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -85,4 +85,6 @@ $json = json_encode($results);
     </div>
 
   </div>
+
+  <p class="text-center"><a class="button" href="/<?php echo $_mt['server_path']; ?>/artists/create/"><i class="fa fa-plus"></i> Create New Artist</a></p>
 </div>
