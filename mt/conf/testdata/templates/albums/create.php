@@ -26,22 +26,33 @@
   $sql = "select id, name from " . $_mt['tblprefix'] . "artists order by name";
   $st = $conn->prepare($sql);
   $st->execute();
-  $artists = $st->fetchAll(PDO::FETCH_ASSOC);
+  $artists = $st->fetchAll(PDO::FETCH_NUM);
 ?>
+
+
 
 <form method="post" id="create" class="clearfix">
   <h1>Create Album...</h1>
-  
+
   <div class="row">
     <div class="medium-6 columns">
       <input type="text" name="f_title" placeholder="Title" required value="<?php echo isset($_POST['f_title']) ? htmlspecialchars($_POST['f_title']) : ''; ?>" />
-      <select name="f_artist_id">
-        <option value="">Artist...</option>
-        <?php foreach($artists as $artist): ?>
-          <option value="<?php echo $artist['id']; ?>"><?php echo $artist['name']; ?></option>
-        <?php endforeach; ?>
-      </select>
-      <input type="number" name="f_pubyear" placeholder="Year" maxlength="4" required value="<?php echo isset($_POST['f_pubyear']) ? htmlspecialchars($_POST['f_pubyear']) : ''; ?>" />
+      <input type="text" name="f_artist_displayfield" class="relational" data-reveal-id="artist-select" required placeholder="Select an artist..." autocomplete="off" value="<?php echo isset($_POST['f_artist_displayfield']) ? htmlspecialchars($_POST['f_artist_displayfield']) : ''; ?>" />
+      <input type="hidden" name="f_artist_id" value="<?php echo isset($_POST['f_artist_id']) ? htmlspecialchars($_POST['f_artist_id']) : ''; ?>" required />
+      <script>
+        var artists_data_obj = {
+          data: <?php echo json_encode($artists); ?>,
+          columns: [
+            { "title": "ID" },
+            { "title": "Name" }
+          ],
+          paging: false
+        };
+      </script>
+      <div id="artist-select" class="reveal-modal relational" data-reveal data-field="f_artist_id">
+        <table class="smart-table" data-dataobj="artists"></table>
+      </div>
+      <input type="number" name="f_pubyear" placeholder="Year" maxlength="4" min="1950" required value="<?php echo isset($_POST['f_pubyear']) ? htmlspecialchars($_POST['f_pubyear']) : ''; ?>" />
     </div>
     <div class="medium-6 columns">
       <div class="image-editable unset" data-reveal-id="file-browser" data-instance-id="mtImageEdit">

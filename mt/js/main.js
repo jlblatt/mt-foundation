@@ -516,7 +516,11 @@ $(document).ready(function() {
     var field = $(this).parents(".reveal-modal.relational").data("field");
     var id = $(this).find("td:first-child").text();
     var name = $(this).find("td:last-child").html();
-    $('.field-editable.relational[data-reveal-id="' + $(this).parents(".reveal-modal.relational").attr('id') + '"]').html(name);
+    var $ele = $('.relational[data-reveal-id="' + $(this).parents(".reveal-modal.relational").attr('id') + '"]');
+    
+    if($ele.is("input")) $ele.val(name);
+    else $ele.html(name);
+    
     $('input[type="hidden"][name="' + field + '"]').val(id);
     
     $('#edit input[type="submit"]').removeClass('secondary disabled');
