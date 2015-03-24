@@ -514,8 +514,10 @@ $(document).ready(function() {
 
   $(".reveal-modal.relational table").on("click", "tbody tr", function(){
     var field = $(this).parents(".reveal-modal.relational").data("field");
+
     var id = $(this).find("td:first-child").text();
-    var name = $(this).find("td:last-child").html();
+    var name = $(this).find("td:nth-child(2)").html();
+    
     var $ele = $('.relational[data-reveal-id="' + $(this).parents(".reveal-modal.relational").attr('id') + '"]');
     
     if($ele.is("input")) $ele.val(name);

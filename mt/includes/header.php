@@ -36,7 +36,12 @@
             </ul>
           </li>
           <li class="divider"></li>
-          <li><a href="/<?php echo $_mt['server_path']; ?>/songs/">Songs</a></li>
+          <li class="has-dropdown">
+            <a href="/<?php echo $_mt['server_path']; ?>/songs/">Songs</a>
+            <ul class="dropdown">
+              <li><a href="/<?php echo $_mt['server_path']; ?>/songs/create/"><i class="fa fa-plus-square"></i>Create</a></li>
+            </ul>
+          </li>
         </ul>
       </section>
     </nav>
