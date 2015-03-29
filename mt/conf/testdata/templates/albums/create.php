@@ -43,8 +43,10 @@
         var artists_data_obj = {
           data: <?php echo json_encode($artists); ?>,
           columns: [
-            { "title": "ID" },
-            { "title": "Name" }
+            { title: "ID", visible: false },
+            { title: "Name", data: function(row){
+              return '<span class="data hide" data-field="id">' + row[0] + '</span><span class="data" data-field="name">' + row[1] + '</span>';
+            }}
           ],
           paging: false
         };

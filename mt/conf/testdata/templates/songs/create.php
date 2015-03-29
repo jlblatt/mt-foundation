@@ -42,10 +42,12 @@
         var albums_data_obj = {
           data: <?php echo json_encode($albums); ?>,
           columns: [
-            { "title": "ID" },
-            { "title": "Title" },
-            { "title": "Artist" },
-            { "title": "Year" }
+            { title: "ID", visible: false },
+            { title: "Title", data: function(row){
+              return '<span class="data hide" data-field="id">' + row[0] + '</span><span class="data" data-field="name">' + row[1] + '</span>';
+            }},
+            { title: "Artist" },
+            { title: "Year" }
           ],
           paging: false
         };

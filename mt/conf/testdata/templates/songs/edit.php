@@ -44,7 +44,7 @@
 <?php $song = $results[0]; ?>
 
 <?php 
-  $sql = "select id, title from " . $_mt['tblprefix'] . "albums order by title";
+  $sql = "select id, title, (select name from " . $_mt['tblprefix'] . "artists where id = artist_id) as artist, pubyear from " . $_mt['tblprefix'] . "albums order by title";
   $st = $conn->prepare($sql);
   $st->execute();
   $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -62,8 +62,12 @@
     var albums_data_obj = {
       data: <?php echo json_encode($albums); ?>,
       columns: [
-        { "title": "ID" },
-        { "title": "Title" }
+        { title: "ID", visible: false },
+        { title: "Title", data: function(row){
+          return '<span class="data hide" data-field="id">' + row[0] + '</span><span class="data" data-field="name">' + row[1] + '</span>';
+        }},
+        { title: "Artist" },
+        { title: "Year" }
       ],
       paging: false
     };

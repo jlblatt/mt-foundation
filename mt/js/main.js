@@ -460,6 +460,7 @@ $(document).ready(function() {
       {
         $(this)
           .attr('contenteditable', true)
+          .attr('data-lastval', $(this).html())
           .addClass('editing')
           .focus();
       }
@@ -473,7 +474,10 @@ $(document).ready(function() {
     })
 
     .blur(function(){
-      var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '');
+      var val = $(this).html().replace(/^(\<br ?\/?\>)+/, '').replace(/(\<br ?\/?\>)+$/, '').trim();
+
+      if(val == "") val = $(this).data('lastval');
+      
       $(this).html(val);
       $('input[type="hidden"][name="' + $(this).data('field') + '"]').val(val);
 
@@ -515,8 +519,8 @@ $(document).ready(function() {
   $(".reveal-modal.relational table").on("click", "tbody tr", function(){
     var field = $(this).parents(".reveal-modal.relational").data("field");
 
-    var id = $(this).find("td:first-child").text();
-    var name = $(this).find("td:nth-child(2)").html();
+    var id = $(this).find('span.data[data-field="id"]').text();
+    var name = $(this).find('span.data[data-field="name"]').html();
     
     var $ele = $('.relational[data-reveal-id="' + $(this).parents(".reveal-modal.relational").attr('id') + '"]');
     
