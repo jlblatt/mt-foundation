@@ -34,12 +34,23 @@ header {
       background: rgba(255, 255, 255, .1) !important;
     }
 
-    .name h1 {
-      font-size: 1.36rem;
+    .name {
+      h1 {
+        font-size: 1.36rem;
+      }
 
       i.fa {
         width: 2.24rem;
         text-align: center;
+      }
+
+      .dropdown li {
+        width: 400%;
+        a {
+          float: left;
+          width: 25%;
+          text-align: center;
+        }
       }
     }
 

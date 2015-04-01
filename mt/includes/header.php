@@ -3,9 +3,6 @@
   <div class="sticky">
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
-        <li class="name">
-          <h1><a href="/<?php echo $_mt['server_path']; ?>/" title="mt-foundation"></a></h1>
-        </li>
         <li class="toggle-topbar menu-icon"><a><span></span></a></li>
       </ul>
 
@@ -21,6 +18,35 @@
         </ul>
 
         <ul class="left">
+          <li class="name has-dropdown">
+            <h1><a href="/<?php echo $_mt['server_path']; ?>/" title="mt-foundation"></a></h1>
+            <ul class="dropdown">
+              <li>
+                <a><i class="fa fa-birthday-cake"></i></a>
+                <a><i class="fa fa-tachometer"></i></a>
+                <a><i class="fa fa-tty"></i></a>
+                <a><i class="fa fa-beer"></i></a>
+              </li>
+              <li>
+                <a><i class="fa fa-bug"></i></a>
+                <a><i class="fa fa-bed"></i></a>
+                <a><i class="fa fa-heart"></i></a>
+                <a><i class="fa fa-transgender-alt"></i></a>
+              </li>
+              <li>
+                <a><i class="fa fa-magic"></i></a>
+                <a><i class="fa fa-music"></i></a>
+                <a><i class="fa fa-rocket"></i></a>
+                <a><i class="fa fa-rebel"></i></a>
+              </li>
+              <li>
+                <a><i class="fa fa-empire"></i></a>
+                <a><i class="fa fa-glass"></i></a>
+                <a><i class="fa fa-leaf"></i></a>
+                <a><i class="fa fa-paw"></i></a>
+              </li>
+            </ul>
+          </li>
           <li class="divider"></li>
           <li class="has-dropdown">
             <a href="/<?php echo $_mt['server_path']; ?>/artists/">Artists</a>

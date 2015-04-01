@@ -370,9 +370,24 @@ $(document).ready(function() {
   // assorted ui
   ////////////////////////
 
-  var icons = ['birthday-cake', 'tachometer', 'tty', 'beer', 'bug', 'bed', 'heart', 'transgender-alt', 'connectdevelop', 'magic', 'music', 'rocket', 'rebel', 'empire', 'glass', 'leaf', 'paw']
-  var icon = icons[Math.floor(Math.random()*icons.length)];
-  $(".top-bar .name h1 a").prepend('<i class="fa fa-' + icon + '"></i>');
+  //var icons = ['birthday-cake', 'tachometer', 'tty', 'beer', 'bug', 'bed', 'heart', 'transgender-alt', 'connectdevelop', 'magic', 'music', 'rocket', 'rebel', 'empire', 'glass', 'leaf', 'paw']
+  //var icon = icons[Math.floor(Math.random()*icons.length)];
+  //$(".top-bar .name h1 a").prepend('<i class="fa fa-' + icon + '"></i>');
+
+  $(".top-bar .name .dropdown a").click(function(){
+    var which = $(this).children('i.fa').attr('class').replace('fa fa-', '');
+    $(".top-bar .name h1 a").html('<i class="fa fa-' + which + '"></i>');
+    $.cookie("mtIcon", which, { expires: 3650, path: '/' });
+  });
+
+  if($.cookie("mtIcon"))
+  {
+    $(".top-bar .name h1 a").html('<i class="fa fa-' + $.cookie("mtIcon") + '"></i>');
+  }
+  else
+  {
+    $(".top-bar .name h1 a").html('mt');
+  }
 
   $(".top-bar .right .has-dropdown").hover(function(){
     $(this).find('i.fa-cog').addClass('fa-spin');
