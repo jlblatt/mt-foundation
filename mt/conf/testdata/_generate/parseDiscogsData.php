@@ -3,7 +3,6 @@
 //take an array of artist ids, pull album/song info/assets from Discogs, and convert to SQL inserts
 
 $artists = array(246650, 158120, 81013, 82730, 67156, 253281, 1289, 10263, 50183, 110593, 252354, 251595);
-$artists = array(158120);
 
 $sql = "";
 
@@ -11,9 +10,14 @@ $sql = "";
 
 function getReleasePage($artist, $page)
 {
+  sleep(2);
   $ch = curl_init("http://api.discogs.com/artists/" . $artist . "/releases?per_page=100&page=" . $page);
   curl_setopt($ch, CURLOPT_USERAGENT, 'MTFoundationTestDataCollector/1.0 +https://github.com/jlblatt/mt-foundation');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 60);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
   $result = curl_exec($ch); curl_close($ch);
   $releases = json_decode($result);
   return $releases;
@@ -21,9 +25,15 @@ function getReleasePage($artist, $page)
 
 function getAlbum($id)
 {
-  $ch = curl_init("http://api.discogs.com/masters/" . $id);
+  sleep(2);
+  $ch = curl_init("https://api.discogs.com/masters/" . $id . "?key=xxx&secret=yyy");
   curl_setopt($ch, CURLOPT_USERAGENT, 'MTFoundationTestDataCollector/1.0 +https://github.com/jlblatt/mt-foundation');
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 60);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
   $result = curl_exec($ch); curl_close($ch);
   $album = json_decode($result);
   return $album; 
@@ -31,13 +41,20 @@ function getAlbum($id)
 
 function getImage($url)
 {
-  $ext = preg_replace("/.*(\.\w\w\w\w?)/", "$1", $url);
-  $ch = curl_init($url . "?token=xxxxxxxxxxxxxxxxxxx");
+  sleep(2);
+  $ext = preg_replace("/.*(\.\w\w\w\w?)$/", "$1", $url);
+  $ch = curl_init($url);
   $fp = fopen('images/' . mt_rand() . $ext, 'w');
   curl_setopt($ch, CURLOPT_USERAGENT, 'MTFoundationTestDataCollector/1.0 +https://github.com/jlblatt/mt-foundation');
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1);
+  curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 60);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
   curl_setopt($ch, CURLOPT_FILE, $fp);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_exec($ch); curl_close($ch); fclose($fp);
+  return mt_rand() . $ext;
 }
 
 
@@ -62,16 +79,13 @@ foreach($artists as $artist)
       }
     }
 
-    if(property_exists($thisSetOfReleases->pagination->urls, "next") && false)
+    if(property_exists($thisSetOfReleases->pagination->urls, "next"))
     {
       $page++;
-      sleep(2);
     }
 
     else break;
   }
-
-  sleep(2);
 }
 
 
@@ -93,9 +107,7 @@ foreach($allAlbums as $artist => $albums)
           $prim = $index;
         }
       }
-      print_r($album->images);
-      getImage($album->images[$prim]->resource_url);
-      sleep(2);  
+      $album->imagename = getImage($album->images[$prim]->resource_url);
     }
   }
 }
@@ -117,8 +129,6 @@ foreach($allAlbums as $artist => $albums)
       $song->album_id = $album->id;
       $allSongs[] = $song;
     }
-
-    sleep(2);
   }
 }
 
@@ -132,11 +142,10 @@ foreach($allAlbums as $artist => $albums)
 {
   foreach($albums as $album)
   {
-    $sql .= sprintf("insert into {{{prefix}}}albums (id, title, image, thumbnail, pubyear, artist_id, date_created, date_modified) values (%u, '%s', '%s', '%s', %u, %u, now(), now());\n",
+    $sql .= sprintf("insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (%u, '%s', '%s', %u, %u, now(), now());\n",
       $album->id,
       sqlescape($album->title),
-      sqlescape(''),
-      sqlescape(''),
+      sqlescape('albums/' . $album->imagename),
       $album->year,
       $artist
     );
@@ -153,7 +162,10 @@ foreach($allSongs as $song)
   );
 }
 
-echo $sql;
+//echo $sql;
+file_put_contents("data.sql", $sql);
+
+echo "Done!";
 
 
 
