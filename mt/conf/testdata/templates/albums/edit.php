@@ -101,11 +101,11 @@
 
 <?php if($results): ?>
   <?php echo $albumText; ?>
-  <ul class="track-list">
+  <ol class="track-list">
     <?php foreach($results as $result): ?>
       <li><?php echo $result['track_no']; ?>) <a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><?php echo htmlspecialchars($result['title']); ?></a></li>
     <?php endforeach; ?>
-  </ul>
+  </ol>
 <?php endif; ?>
 
 <form method="post" action="/<?php echo $_mt['server_path']; ?>/albums/" class="confirm-delete" data-type="album">

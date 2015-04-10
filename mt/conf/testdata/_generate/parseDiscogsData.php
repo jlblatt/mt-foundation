@@ -44,7 +44,8 @@ function getImage($url)
   sleep(2);
   $ext = preg_replace("/.*(\.\w\w\w\w?)$/", "$1", $url);
   $ch = curl_init($url);
-  $fp = fopen('images/' . mt_rand() . $ext, 'w');
+  $filename = mt_rand() . $ext;
+  $fp = fopen('images/' . $filename, 'w');
   curl_setopt($ch, CURLOPT_USERAGENT, 'MTFoundationTestDataCollector/1.0 +https://github.com/jlblatt/mt-foundation');
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
@@ -54,7 +55,7 @@ function getImage($url)
   curl_setopt($ch, CURLOPT_FILE, $fp);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_exec($ch); curl_close($ch); fclose($fp);
-  return mt_rand() . $ext;
+  return $filename;
 }
 
 

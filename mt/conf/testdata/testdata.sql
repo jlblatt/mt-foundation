@@ -33,6 +33,8 @@ create table if not exists {{{prefix}}}songs (
   primary key (id)
 );
 
+# Artists
+
 insert into {{{prefix}}}artists (id, name, description, image, date_created, date_modified) values (246650, 'Grateful Dead, The', 'The Grateful Dead was an American rock band formed in 1965 in Palo Alto, California. The band was known for its unique and eclectic style, which fused elements of rock, folk, bluegrass, blues, reggae, country, improvisational jazz, psychedelia, and space rock, and for live performances of long musical improvisation.', 'artists/grateful-dead.jpg', now(), now());
 insert into {{{prefix}}}artists (id, name, description, image, date_created, date_modified) values (158120, 'Ratatat', 'Ratatat is a New York City experimental electronic rock duo consisting of Mike Stroud (guitar, melodica, synthesizers, percussion) and producer Evan Mast (bass, synthesizers, percussion).', 'artists/ratatat.jpg', now(), now());
 insert into {{{prefix}}}artists (id, name, description, image, date_created, date_modified) values (81013, 'Queen', 'Queen are a British rock band formed in London in 1970, originally consisting of Freddie Mercury (lead vocals, piano), Brian May (guitar, vocals), John Deacon (bass guitar), and Roger Taylor (drums, vocals). Queen\'s earliest works were influenced by progressive rock, hard rock and heavy metal, but the band gradually ventured into more conventional and radio-friendly works, incorporating further diverse styles into their music.', 'artists/queen.jpg', now(), now());
@@ -48,16 +50,16 @@ insert into {{{prefix}}}artists (id, name, description, image, date_created, dat
 
 # Ratatat Albums ##################################
 
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121822, 'Seventeen Years', 'albums/1675808504.jpg', 2003, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121823, 'Germany To Germany', 'albums/938603978.jpg', 2004, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121826, 'Ratatat', 'albums/918524829.jpg', 2004, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (404052, 'Remixes - Mixtape Vol. 1', 'albums/630962605.jpg', 2004, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121827, 'Classics', 'albums/360929314.jpg', 2006, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121831, 'LP3', 'albums/1074094731.jpg', 2008, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (322878, 'Shempi', 'albums/1482224687.jpg', 2008, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (230271, 'Shiller', 'albums/920372528.jpg', 2008, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (647366, 'Pursuit Of Happiness', 'albums/1007760548.jpg', 2009, 158120, now(), now());
-insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (264782, 'LP4', 'albums/777355203.jpg', 2010, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121822, 'Seventeen Years', 'albums/36463917.jpg', 2003, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121823, 'Germany To Germany', 'albums/97270802.jpg', 2004, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121826, 'Ratatat', 'albums/727060011.jpg', 2004, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (404052, 'Remixes - Mixtape Vol. 1', 'albums/421495212.jpg', 2004, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121827, 'Classics', 'albums/1926775574.jpg', 2006, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (121831, 'LP3', 'albums/1816767128.jpg', 2008, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (322878, 'Shempi', 'albums/1255858763.jpg', 2008, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (230271, 'Shiller', 'albums/98213119.jpg', 2008, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (647366, 'Pursuit Of Happiness', 'albums/656620273.jpg', 2009, 158120, now(), now());
+insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (264782, 'LP4', 'albums/671949785.jpg', 2010, 158120, now(), now());
 
 # Ratatat Songs ###################################
 
