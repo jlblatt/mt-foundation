@@ -53,7 +53,7 @@
   $artists = $results;
 ?>
 
-<form method="post" id="edit" class="clearfix">    
+<form method="post" id="edit">    
   <div class="image-editable" data-reveal-id="file-browser" data-instance-id="mtImageEdit">
     <img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($album['image']); ?>" />
     <input type="hidden" name="f_image" value="<?php echo htmlspecialchars($album['image']); ?>" />
@@ -101,9 +101,9 @@
 
 <?php if($results): ?>
   <?php echo $albumText; ?>
-  <ol class="track-list">
+  <ol class="track-list clearfix">
     <?php foreach($results as $result): ?>
-      <li><?php echo $result['track_no']; ?>) <a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><?php echo htmlspecialchars($result['title']); ?></a></li>
+      <li><a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><?php echo htmlspecialchars($result['title']); ?></a></li>
     <?php endforeach; ?>
   </ol>
 <?php endif; ?>

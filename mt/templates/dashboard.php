@@ -108,7 +108,7 @@ $songs = $st->fetchAll(PDO::FETCH_ASSOC);
               array_splice($imgParts, count($imgParts) - 1, 0, 'thumbnail');
               $thumbSrc = implode('/', $imgParts);
             ?>
-            <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo $album['id']; ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($album); ?>" /><?php echo $album['title']; ?></a> - <?php echo $album['artist_name']; ?> - <?php echo $album['pubyear']; ?></li>
+            <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo $album['id']; ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($thumbSrc); ?>" /><?php echo $album['title']; ?></a> - <?php echo $album['artist_name']; ?> - <?php echo $album['pubyear']; ?></li>
           <?php endforeach; ?>
           <li><a href="/<?php echo $_mt['server_path']; ?>/albums/"><strong>View All</strong></a></li>
         </ul>

@@ -37,6 +37,7 @@ if(!$_mt['init'] && isset($_POST['install']))
       $failedReason = "Could not load test data to database.";
     }
 
+    //everything below here needs generic and testdata versions to be split and installed appropriately 
     //copy test template files into place
     @mkdir('uploads');
     $result = true;
@@ -57,6 +58,8 @@ if(!$_mt['init'] && isset($_POST['install']))
     //testdata js
 
     //testdata css
+
+    //hide install button after click
     
   }
 
