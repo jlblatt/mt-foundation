@@ -39,13 +39,12 @@ function getAlbum($id)
   return $album; 
 }
 
-function getImage($url)
+function getImage($url, $fn)
 {
   sleep(2);
   $ext = preg_replace("/.*(\.\w\w\w\w?)$/", "$1", $url);
   $ch = curl_init($url);
-  $filename = mt_rand() . $ext;
-  $fp = fopen('images/' . $filename, 'w');
+  $fp = fopen('images/' . $fn . $ext, 'w');
   curl_setopt($ch, CURLOPT_USERAGENT, 'MTFoundationTestDataCollector/1.0 +https://github.com/jlblatt/mt-foundation');
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
@@ -55,7 +54,7 @@ function getImage($url)
   curl_setopt($ch, CURLOPT_FILE, $fp);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_exec($ch); curl_close($ch); fclose($fp);
-  return $filename;
+  return $fn . $ext;
 }
 
 
@@ -108,7 +107,7 @@ foreach($allAlbums as $artist => $albums)
           $prim = $index;
         }
       }
-      $album->imagename = getImage($album->images[$prim]->resource_url);
+      $album->imagename = getImage($album->images[$prim]->resource_url, $album->id);
     }
   }
 }
