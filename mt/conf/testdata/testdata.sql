@@ -87,7 +87,7 @@ insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_mod
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Shempi', 7, 121831, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Imperials', 8, 121831, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Dura', 9, 121831, now(), now());
-insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('BruleÃ©', 10, 121831, now(), now());
+insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Bruleé', 10, 121831, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Mumtaz Khan', 11, 121831, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Gipsy Threat', 12, 121831, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Black Heroes', 13, 121831, now(), now());
