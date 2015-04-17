@@ -103,7 +103,7 @@ insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_mod
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Bare Feast', 10, 264782, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Grape Juice City', 11, 264782, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Alps', 12, 264782, now(), now());
-  
+
 # Daft Punk Albums ##################################
 
 insert into {{{prefix}}}albums (id, title, image, pubyear, artist_id, date_created, date_modified) values (26629, 'Homework', 'albums/26629.jpg', 1997, 1289, now(), now());
