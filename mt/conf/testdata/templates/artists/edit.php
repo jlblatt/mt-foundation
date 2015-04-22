@@ -74,7 +74,12 @@
   <div id="grid-view" class="related">
     <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
       <?php foreach($results as $result): ?>
-        <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($result['thumbnail']); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?></span></a></li>
+        <?php 
+          $imgParts = explode('/', $result['image']);
+          array_splice($imgParts, count($imgParts) - 1, 0, 'thumbnail');
+          $thumbSrc = implode('/', $imgParts);
+        ?>
+        <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($thumbSrc); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?></span></a></li>
       <?php endforeach; ?>
     </ul>  
   </div>
@@ -85,26 +90,3 @@
   <p>&nbsp;</p>
   <p class="text-center"><input type="submit" class="button alert" value="Delete This Artist" name="delete" /><p>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
