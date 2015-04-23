@@ -60,6 +60,10 @@ if(!$_mt['init'] && isset($_POST['install']))
     //testdata css
 
     //hide install button after click
+
+    //fix timeout via http://stackoverflow.com/questions/3909191/prevent-timeout-during-large-request-in-php
+
+    //delete install script after run
     
   }
 
