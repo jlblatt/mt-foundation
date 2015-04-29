@@ -882,7 +882,7 @@ insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_mod
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Lovely Rita', 10, 751603, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Good Morning Good Morning', 11, 751603, now(), now());
 insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('Sgt Pepper\'s Lonely Hearts Club Band (Reprise)', 12, 751603, now(), now());
-insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('A Day In The Life', 13, 751603, now(), now());\
+insert into {{{prefix}}}songs (title, track_no, album_id, date_created, date_modified) values ('A Day In The Life', 13, 751603, now(), now());
 
 # NOFX Albums ##################################
 
