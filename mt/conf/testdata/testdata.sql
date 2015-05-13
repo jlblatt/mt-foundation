@@ -33,7 +33,7 @@ create table if not exists {{{prefix}}}songs (
   primary key (id)
 );
 
-# Artists
+# Artists ##################################
 
 insert into {{{prefix}}}artists (id, name, description, image, date_created, date_modified) values (158120, 'Ratatat', 'Ratatat is a New York City experimental electronic rock duo consisting of Mike Stroud (guitar, melodica, synthesizers, percussion) and producer Evan Mast (bass, synthesizers, percussion).', 'artists/ratatat.jpg', now(), now());
 insert into {{{prefix}}}artists (id, name, description, image, date_created, date_modified) values (1289, 'Daft Punk', 'Daft Punk is a French electronic music duo consisting of musicians Guy-Manuel de Homem-Christo and Thomas Bangalter. Daft Punk reached significant popularity in the late 1990s house movement in France and met with continued success in the years following, combining elements of house with synthpop.', 'artists/daft-punk.jpg', now(), now());

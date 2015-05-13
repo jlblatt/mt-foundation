@@ -5,7 +5,7 @@ $sql = "select
     name, 
     image 
   from " . $_mt['tblprefix'] . "artists 
-  order by date_modified desc 
+  order by rand()
   limit 5";
 
 $st = $conn->prepare($sql);
@@ -23,7 +23,7 @@ $sql = "select
   from " . $_mt['tblprefix'] . "albums 
     inner join " . $_mt['tblprefix'] . "artists 
     on " . $_mt['tblprefix'] . "albums.artist_id = " . $_mt['tblprefix'] . "artists.id 
-  order by " . $_mt['tblprefix'] . "albums.date_modified desc 
+  order by rand()
   limit 5";
 
 $st = $conn->prepare($sql);
@@ -36,11 +36,14 @@ $albums = $st->fetchAll(PDO::FETCH_ASSOC);
 $sql = "select 
     " . $_mt['tblprefix'] . "songs.id, 
     " . $_mt['tblprefix'] . "songs.title,
+    " . $_mt['tblprefix'] . "artists.name as artist_name,
     " . $_mt['tblprefix'] . "albums.title as album_title
   from " . $_mt['tblprefix'] . "songs 
     inner join " . $_mt['tblprefix'] . "albums
     on " . $_mt['tblprefix'] . "songs.album_id = " . $_mt['tblprefix'] . "albums.id 
-  order by " . $_mt['tblprefix'] . "songs.date_modified desc 
+    inner join " . $_mt['tblprefix'] . "artists
+    on " . $_mt['tblprefix'] . "albums.artist_id = " . $_mt['tblprefix'] . "artists.id 
+  order by rand()
   limit 5";
 
 $st = $conn->prepare($sql);
@@ -78,7 +81,7 @@ $songs = $st->fetchAll(PDO::FETCH_ASSOC);
         <div class="title"><strong>Recent Songs</strong><hr /></div>
         <ul>
           <?php foreach($songs as $song): ?>
-            <li><i class="fa fa-music"></i> <a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=<?php echo $song['id']; ?>"><?php echo $song['title']; ?></a> - <?php echo $song['album_title']; ?></li>
+            <li><i class="fa fa-music"></i> <a href="/<?php echo $_mt['server_path']; ?>/songs/edit/?id=<?php echo $song['id']; ?>"><?php echo $song['title']; ?></a> - <?php echo $song['artist_name']; ?> - <?php echo $song['album_title']; ?></li>
           <?php endforeach; ?>
           <li><a href="/<?php echo $_mt['server_path']; ?>/songs/"><strong>View All</strong></a></li>
         </ul>
