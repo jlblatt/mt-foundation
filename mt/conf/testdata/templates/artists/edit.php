@@ -62,7 +62,7 @@
   
   $albumText = '<h3>Albums by ' . $artist['name'] . '</h3>';
 
-  $sql = "select * from " . $_mt['tblprefix'] . "albums where artist_id = :id";
+  $sql = "select * from " . $_mt['tblprefix'] . "albums where artist_id = :id order by pubyear";
   $st = $conn->prepare($sql);
   $st->bindValue(":id", $_GET['id'] ,PDO::PARAM_INT);
   $st->execute();
@@ -79,7 +79,7 @@
           array_splice($imgParts, count($imgParts) - 1, 0, 'thumbnail');
           $thumbSrc = implode('/', $imgParts);
         ?>
-        <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($thumbSrc); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?></span></a></li>
+        <li><a href="/<?php echo $_mt['server_path']; ?>/albums/edit/?id=<?php echo htmlspecialchars($result['id']); ?>" title="<?php echo htmlspecialchars($result['title']); ?>"><img src="/<?php echo $_mt['server_path']; ?>/uploads/<?php echo htmlspecialchars($thumbSrc); ?>" /><span class="title"><?php echo htmlspecialchars($result['title']); ?> (<?php echo htmlspecialchars($result['pubyear']); ?>)</span></a></li>
       <?php endforeach; ?>
     </ul>  
   </div>

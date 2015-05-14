@@ -189,9 +189,8 @@ footer {
         }
         span.filename {
           display: block;
-          height: 1.4rem;
+          height: 2.6rem;
           padding-top: .4rem;
-          white-space: nowrap;
           overflow: hidden;
         }
       }
@@ -333,9 +332,8 @@ footer {
         }
         span.title {
           display: block;
-          height: 1.4rem;
+          height: 2.6rem;
           padding-top: .4rem;
-          white-space: nowrap;
           overflow: hidden;
         }
       }
@@ -368,6 +366,18 @@ footer {
         font-size: .6rem;
         line-height: 1.2;
         color: #888;
+      }
+    }
+
+    @media(max-width: $small) {
+      display: block;
+
+      thead, tbody, tr, th, td {
+        display: block;
+      }
+
+      th.sorting_disabled {
+        display: none;
       }
     }
   }
@@ -420,6 +430,8 @@ footer {
       float: right;
       max-width: 50%;
       margin:  0 0 4rem 4rem;
+      position: relative;
+      z-index: 1;
     }
 
     img {
