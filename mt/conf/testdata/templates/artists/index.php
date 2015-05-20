@@ -14,7 +14,7 @@ if(isset($_POST['delete']) && isset($_POST['id']))
   else $deleteAlert = '<div data-alert class="alert-box alert">Artist delete failed :( - Error code: ' . $st->errorInfo() . '</div>';
 }
 
-$sql = "select id, name, image, description, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "artists order by name asc";
+$sql = "select id, name, image, description, date_format(date_modified, '%b %d, %Y %h:%i %p') from " . $_mt['tblprefix'] . "artists order by rand() asc";
 $st = $conn->prepare($sql);
 $st->execute();
 $results = $st->fetchAll(PDO::FETCH_NUM);
@@ -53,12 +53,12 @@ $json = json_encode($results);
   
   <?php echo $deleteAlert; ?>
 
-  <ul class="tabs right" data-tab>
-    <li class="tab-title <?php if(!isset($_COOKIE['mtIndexView']) || $_COOKIE['mtIndexView'] == 'Grid View') echo 'active'; ?>"><a title="Grid View" href="#grid-view"><i class="fa fa-th"></i><span class="show-for-small-only">&nbsp;Grid View</span></a></li>
-    <li class="tab-title <?php if(isset($_COOKIE['mtIndexView']) && $_COOKIE['mtIndexView'] == 'List View') echo 'active'; ?>"><a title="List View" href="#list-view"><i class="fa fa-list"></i><span class="show-for-small-only">&nbsp;List View</span></a></li>
-  </ul>
-
   <h1>Artists</h1>
+  
+  <ul class="tabs" data-tab>
+    <li class="tab-title <?php if(!isset($_COOKIE['mtIndexView']) || $_COOKIE['mtIndexView'] == 'Grid View') echo 'active'; ?>"><a title="Grid View" href="#grid-view"><i class="fa fa-th"></i></a></li>
+    <li class="tab-title <?php if(isset($_COOKIE['mtIndexView']) && $_COOKIE['mtIndexView'] == 'List View') echo 'active'; ?>"><a title="List View" href="#list-view"><i class="fa fa-list"></i></a></li>
+  </ul>
 
   <div class="tabs-content">
     
@@ -81,7 +81,7 @@ $json = json_encode($results);
     </div>
     
     <div class="content <?php if(isset($_COOKIE['mtIndexView']) && $_COOKIE['mtIndexView'] == 'List View') echo 'active'; ?>" id="list-view">
-      <table class="smart-table" data-dataobj="artists"></table>
+      <table class="smart-table" data-dataobj="artists" width="100%"></table>
     </div>
 
   </div>

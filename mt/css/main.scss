@@ -314,6 +314,20 @@ footer {
 //data index
 ////////////////////
 
+.index {
+  h1 {
+    @media(min-width: $small) {
+      float: left;
+    }
+  }
+
+  .tabs {
+    @media(min-width: $small) {
+      float: right;
+    }
+  }
+}
+
 #grid-view {
   ul {
     li {
@@ -341,9 +355,24 @@ footer {
   }
 }
 
-#list-view {
+#list-view, .reveal-modal.relational {
   table {
+    border-bottom: 1px solid #ddd;
+
+    th {
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr {
+      border-bottom: 1px solid #f2f2f2;
+
+      @media(min-width: $small) {
+        border-bottom: none;
+      }
+    }
+    
     td {
+
       .title-wrap {
         min-width: 8rem;
         font-size: 1.1rem;
@@ -367,6 +396,16 @@ footer {
         line-height: 1.2;
         color: #888;
       }
+
+      @media(min-width: $small) {
+        border-bottom: 1px solid #f2f2f2;
+      }
+    }
+
+    @media(min-width: $small) {
+      tr:last-child td {
+        border-bottom: none;
+      }
     }
 
     @media(max-width: $small) {
@@ -379,7 +418,14 @@ footer {
       th.sorting_disabled {
         display: none;
       }
+
+      
     }
+  }
+
+  div.dataTables_filter label {
+    float: none;
+    text-align: left;
   }
 }
 
@@ -505,6 +551,16 @@ footer {
   }
 }
 
-.reveal-modal.relational table span.data.hide {
-  display: none
+.reveal-modal.relational {
+  table {
+    tbody tr {
+      &:hover {
+        cursor: pointer;
+        background: rgba(0, 140, 186, .05); 
+      }
+      span.data.hide {
+        display: none
+      }
+    }
+  }
 }
