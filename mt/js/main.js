@@ -395,7 +395,7 @@ $(document).ready(function() {
     $(this).find('i.fa-cog').removeClass('fa-spin');
   });
 
-  //$('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});
+  $('#footer-text').BaconIpsum({type : 'meat-and-filler', sentences : 1, no_tags : true , start_with_lorem : false});
 
   ////////////////////////
   // dashboard
