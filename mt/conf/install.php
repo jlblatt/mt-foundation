@@ -24,6 +24,9 @@ if(!$_mt['init'] && isset($_POST['install']))
 
   if(isset($_POST['testdata']))
   {
+    set_time_limit(0);
+    ignore_user_abort();
+
     //create test table and load with test data
     try
     {
@@ -60,8 +63,6 @@ if(!$_mt['init'] && isset($_POST['install']))
     //testdata css
 
     //hide install button after click
-
-    //fix timeout via http://stackoverflow.com/questions/3909191/prevent-timeout-during-large-request-in-php
 
     //delete install script after run
     
@@ -175,7 +176,7 @@ if(!$_mt['init'] && isset($_POST['install']))
           <p>&nbsp;</p>
           <p><strong>WARNING!</strong> Installing or reinstalling mt will permanently delete all current data with the same table prefix.</p>
           
-          <input type="submit" value="Install" class="button" />
+          <input type="submit" value="Install" class="button" onclick="$('input[type=submit]').prop('disabled', true);" />
         </form>
       <?php endif; ?>
     </div>
