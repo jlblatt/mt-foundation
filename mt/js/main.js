@@ -370,10 +370,6 @@ $(document).ready(function() {
   // assorted ui
   ////////////////////////
 
-  //var icons = ['birthday-cake', 'tachometer', 'tty', 'beer', 'bug', 'bed', 'heart', 'transgender-alt', 'connectdevelop', 'magic', 'music', 'rocket', 'rebel', 'empire', 'glass', 'leaf', 'paw']
-  //var icon = icons[Math.floor(Math.random()*icons.length)];
-  //$(".top-bar .name h1 a").prepend('<i class="fa fa-' + icon + '"></i>');
-
   $(".top-bar .name .dropdown a").click(function(){
     var which = $(this).children('i.fa').attr('class').replace('fa fa-', '');
     $(".top-bar .name h1 a").html('<i class="fa fa-' + which + '"></i>');

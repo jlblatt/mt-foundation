@@ -22,6 +22,7 @@ if(!$_mt['init'] && isset($_POST['install']))
     $failedReason = "Could not connect to database.  Please check the credentials.";
   }
 
+  //install w/ testdata
   if(isset($_POST['testdata']))
   {
     set_time_limit(0);
@@ -40,33 +41,18 @@ if(!$_mt['init'] && isset($_POST['install']))
       $failedReason = "Could not load test data to database.";
     }
 
-    //everything below here needs generic and testdata versions to be split and installed appropriately 
-    //copy test template files into place
-    @mkdir('uploads');
+    //copy test files into place
     $result = true;
+    recurse_copy('conf/testdata/includes', 'includes');
     recurse_copy('conf/testdata/templates', 'templates');
     recurse_copy('conf/testdata/uploads', 'uploads');
     if(!$result) $failedReason = "Could not copy test template files.";
 
-    //add navigation (need to migrate into testdata somehow) - replace /mt/ with correct path as well
-    //$mainnav = 
-      //'<li class="divider"></li><li><a href="/mt/artists/">Artists</a></li>' . 
-      //'<li class="divider"></li><li><a href="/mt/albums/">Albums</a></li>' . 
-      //'<li class="divider"></li><li><a href="/mt/songs/">Songs</a></li>';
-    //$header = str_replace('<!--{{{mainnav}}}-->', $mainnav, file_get_contents('includes/header.php'));
-    //$result = file_put_contents('includes/header.php', $header);
-
-    //add dashboard panels (also in testdata somehow)
-
-    //testdata js
-
-    //testdata css
-
-    //hide install button after click
-
-    //delete install script after run
-    
+    recurse_delete('conf/testdata');
+    unlink('conf/install.php');
   }
+
+  @mkdir('uploads');
 
   //rewrite .htaccess once in case user changed the base /mt/ directory
   $result = file_put_contents('.htaccess',"
@@ -206,5 +192,14 @@ function recurse_copy($src,$dst) {
     }
   }
   closedir($dir);
+}
+
+//php.net/manual/en/function.rmdir.php#110489
+function recurse_delete($dir) {
+  $files = array_diff(scandir($dir), array('.','..'));
+  foreach ($files as $file) {
+    (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+  }
+  return rmdir($dir);
 }
 ?>
