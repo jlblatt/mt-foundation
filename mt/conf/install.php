@@ -198,7 +198,7 @@ function recurse_copy($src,$dst) {
 function recurse_delete($dir) {
   $files = array_diff(scandir($dir), array('.','..'));
   foreach ($files as $file) {
-    (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    (is_dir("$dir/$file")) ? recurse_delete("$dir/$file") : unlink("$dir/$file");
   }
   return rmdir($dir);
 }
