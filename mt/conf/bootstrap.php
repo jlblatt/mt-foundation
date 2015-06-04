@@ -2,8 +2,8 @@
 
 $_mt = array('msgs' => array());
 
-error_reporting(E_ALL); 
-//error_reporting(0);
+//error_reporting(E_ALL); 
+error_reporting(0);
 
 ob_start();
 
