@@ -1,4 +1,4 @@
-Small framework to setup a simple admin area for managing content.  Uses [Foundation](http://foundation.zurb.com/).  
+Small framework to setup a simple admin area for managing content.  Uses [Foundation](http://foundation.zurb.com/).  View a demo [here](http://cortexture.net/mt/).
 
 ### Quickstart
 
